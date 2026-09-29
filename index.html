@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#17110E">
+<meta name="description" content="Bon Appetit, charcuterie et fromagerie françaises au 18 rue Pocquet de Livonnières à Angers. Plateaux de charcuterie, fromages, horaires et accès.">
+<title>Bon Appetit, charcuterie et fromagerie à Angers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  /* Design sombre par choix : fond brun profond, texte crème, accent orange braise. */
+  :root {
+    color-scheme: dark;
+    --ink: #17110E;
+    --ink-2: #1F1813;
+    --paper: #F3E9DC;
+    --muted: #B9A996;
+    --line: rgba(243, 233, 220, .18);
+    --ember: #E8853A;
+    --serif: "Cormorant Garamond", "Iowan Old Style", Georgia, "Times New Roman", serif;
+    --sans: "Jost", "Helvetica Neue", Arial, system-ui, sans-serif;
+    --pad: clamp(1.25rem, 5vw, 4.5rem);
+    --gutter: clamp(1rem, 2.4vw, 2rem);
+    --maxw: 1400px;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  *, *::before, *::after { box-sizing: inherit; }
+  html { background: var(--ink); scroll-behavior: smooth; scroll-padding-top: env(safe-area-inset-top, 0px); }
+  body {
+    margin: 0;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--sans);
+    font-weight: 300;
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  img, svg { max-width: 100%; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--ember); outline-offset: 3px; }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 400; margin: 0; }
+  p { margin: 0; }
+  address { font-style: normal; }
+
+  .wrap { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: var(--pad); }
+  .grid { display: grid; grid-template-columns: 1fr; column-gap: var(--gutter); row-gap: clamp(2rem, 5vw, 3rem); }
+
+  /* ---------- Emplacements photo ---------- */
+  .ph {
+    position: relative;
+    overflow: hidden;
+    background: var(--ph-base, #24160f);
+    background-image: var(--ph-layers);
+    isolation: isolate;
+  }
+  .ph::after {
+    content: "";
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    opacity: .16;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .food-art { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; display: block; z-index: 0; }
+  .ph-note {
+    position: absolute; left: 1rem; bottom: .9rem; z-index: 2;
+    font-family: var(--sans); font-size: .78rem; font-weight: 400; letter-spacing: .02em;
+    color: rgba(243, 233, 220, .62);
+    max-width: calc(100% - 2rem);
+  }
+  .ph--hero {
+    --ph-base: #17110E;
+    --ph-layers:
+      radial-gradient(60% 70% at 72% 40%, rgba(226, 132, 50, .30) 0%, rgba(170, 84, 28, .12) 45%, rgba(120, 56, 18, 0) 100%),
+      linear-gradient(#17110E, #17110E);
+  }
+  .ph--charcut {
+    --ph-base: #2a130f;
+    --ph-layers:
+      radial-gradient(60% 50% at 28% 30%, rgba(176, 62, 44, .9) 0%, rgba(176, 62, 44, 0) 65%),
+      radial-gradient(50% 45% at 80% 82%, rgba(222, 128, 58, .65) 0%, rgba(222, 128, 58, 0) 70%),
+      linear-gradient(200deg, #3a1a13 0%, #1a0d0a 100%);
+  }
+  .ph--jambon {
+    --ph-layers:
+      radial-gradient(70% 60% at 70% 30%, rgba(200, 96, 80, .8) 0%, rgba(200, 96, 80, 0) 65%),
+      linear-gradient(170deg, #4a2019 0%, #1c0e0b 100%);
+  }
+  .ph--terrine {
+    --ph-layers:
+      radial-gradient(70% 60% at 30% 70%, rgba(196, 140, 78, .75) 0%, rgba(196, 140, 78, 0) 65%),
+      linear-gradient(190deg, #3b2416 0%, #1a100a 100%);
+  }
+  .ph--sec {
+    --ph-layers:
+      radial-gradient(65% 60% at 60% 25%, rgba(150, 60, 40, .8) 0%, rgba(150, 60, 40, 0) 65%),
+      linear-gradient(160deg, #35170f 0%, #180c08 100%);
+  }
+  .ph--cheese {
+    --ph-base: #2a1d0e;
+    --ph-layers:
+      radial-gradient(60% 50% at 65% 28%, rgba(232, 184, 88, .8) 0%, rgba(232, 184, 88, 0) 65%),
+      radial-gradient(50% 50% at 20% 85%, rgba(150, 92, 30, .75) 0%, rgba(150, 92, 30, 0) 70%),
+      linear-gradient(170deg, #3a2812 0%, #1a1108 100%);
+  }
+  .ph--cheese-small {
+    --ph-layers:
+      radial-gradient(70% 55% at 40% 35%, rgba(240, 214, 150, .65) 0%, rgba(240, 214, 150, 0) 68%),
+      linear-gradient(190deg, #43301a 0%, #1c130a 100%);
+  }
+  .ph--intro {
+    --ph-layers:
+      radial-gradient(65% 55% at 35% 30%, rgba(222, 128, 58, .7) 0%, rgba(222, 128, 58, 0) 68%),
+      linear-gradient(175deg, #3a2114 0%, #170f0b 100%);
+  }
+  .ph--band {
+    --ph-base: #170f0a;
+    --ph-layers:
+      radial-gradient(50% 80% at 85% 50%, rgba(226, 118, 44, .8) 0%, rgba(226, 118, 44, 0) 65%),
+      radial-gradient(40% 60% at 10% 30%, rgba(140, 56, 30, .6) 0%, rgba(140, 56, 30, 0) 70%),
+      linear-gradient(120deg, #26160e 0%, #120b08 100%);
+  }
+
+  /* ---------- Boutons ---------- */
+  .btn {
+    display: inline-flex; align-items: center; gap: .7rem;
+    padding: .95rem 1.5rem;
+    background: var(--ember); color: #1a0f08;
+    font-family: var(--sans); font-weight: 500; font-size: 1rem; line-height: 1.2;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: background-color .2s ease, transform .2s ease;
+  }
+  .btn:hover { background: #F19A57; }
+  .btn:active { transform: translateY(1px); }
+  .btn svg { width: 1.1rem; height: 1.1rem; flex: none; }
+  .btn--ghost { background: transparent; color: var(--paper); box-shadow: inset 0 0 0 1px var(--ember); }
+  .btn--ghost:hover { background: rgba(232, 133, 58, .14); }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    min-height: 94vh; min-height: 94svh;
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 1.4rem var(--pad) clamp(2.25rem, 6vw, 4.5rem);
+    overflow: hidden;
+  }
+  .hero > .ph { position: absolute; inset: 0; z-index: 0; }
+  .ph--hero::after { opacity: .10; }
+  .hero-shade {
+    position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(to top, rgba(23, 17, 14, .92) 0%, rgba(23, 17, 14, .35) 40%, rgba(23, 17, 14, 0) 70%);
+  }
+  .hero > .ph .ph-note { top: auto; left: auto; right: var(--pad); bottom: .9rem; text-align: right; }
+  .topbar, .hero-body { position: relative; z-index: 2; width: 100%; max-width: var(--maxw); margin-inline: auto; }
+  .topbar { display: flex; align-items: baseline; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
+  .wordmark { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 1.9rem; line-height: 1; text-decoration: none; }
+  .topbar nav { display: flex; gap: clamp(1.1rem, 3vw, 2.25rem); }
+  .topbar nav a { font-size: .98rem; text-decoration: none; padding-block: .25rem; background: linear-gradient(var(--ember), var(--ember)) 0 100% / 0 1px no-repeat; transition: background-size .25s ease; }
+  .topbar nav a:hover { background-size: 100% 1px; }
+
+  .hero-body { display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: end; padding-top: 5rem; }
+  .hero h1 { font-size: clamp(3.4rem, 10vw, 8.75rem); line-height: .9; letter-spacing: -.02em; max-width: 9.5ch; font-weight: 400; }
+  .hero-side { max-width: 26rem; display: grid; gap: 1.4rem; justify-items: start; }
+  .hero-side p { color: rgba(243, 233, 220, .86); }
+  .status { display: flex; align-items: center; gap: .6rem; font-size: .95rem; color: var(--muted); margin: 0; }
+  .status[hidden] { display: none; }
+  .status .dot { width: .55rem; height: .55rem; border-radius: 50%; background: var(--muted); flex: none; }
+  .status.is-open .dot { background: var(--ember); box-shadow: 0 0 0 4px rgba(232, 133, 58, .22); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero h1, .hero-side { animation: rise 1.1s cubic-bezier(.2, .7, .2, 1) both; }
+    .hero-side { animation-delay: .25s; }
+    @keyframes rise { from { opacity: 0; transform: translateY(1.5rem); } to { opacity: 1; transform: none; } }
+  }
+
+  /* Fromage flottant : clin d'œil cinématographique à Ancient Oath. */
+  .hero-cheese {
+    position: absolute; z-index: 1; right: clamp(1rem, 8vw, 8rem); top: 50%;
+    width: clamp(16rem, 38vw, 36rem); aspect-ratio: 1; transform: translateY(-48%);
+    pointer-events: none; filter: drop-shadow(0 2rem 3rem rgba(0,0,0,.55));
+    animation: cheese-drift 9s ease-in-out infinite;
+  }
+  .hero-cheese svg { display: block; width: 100%; height: 100%; overflow: visible; }
+  .cheese-aura { transform-origin: 50% 50%; animation: aura-turn 36s linear infinite; }
+  .cheese-wheel { transform-origin: 50% 50%; animation: wheel-turn 24s ease-in-out infinite; }
+  .cheese-glint { animation: glint 4s ease-in-out infinite alternate; }
+  @keyframes cheese-drift { 0%,100% { margin-top: 0; } 50% { margin-top: -1.1rem; } }
+  @keyframes aura-turn { to { transform: rotate(360deg); } }
+  @keyframes wheel-turn { 0%,100% { transform: rotate(-5deg) translateY(0); } 50% { transform: rotate(2deg) translateY(-.35rem); } }
+  @keyframes glint { from { opacity: .25; } to { opacity: .8; } }
+  @media (max-width: 899px) {
+    .hero-cheese { width: clamp(13rem, 57vw, 22rem); right: -1.5rem; top: 40%; opacity: .78; }
+    .hero-shade { background: linear-gradient(to top, rgba(23,17,14,.97) 0%, rgba(23,17,14,.72) 42%, rgba(23,17,14,.08) 100%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-cheese, .cheese-aura, .cheese-wheel, .cheese-glint { animation: none !important; }
+  }
+  /* ---------- Introduction ---------- */
+  .intro { padding-block: clamp(5rem, 12vw, 10rem); }
+  .lead { font-family: var(--serif); font-size: clamp(1.6rem, 2.9vw, 2.5rem); line-height: 1.3; font-weight: 300; }
+  .lead::first-letter {
+    float: left;
+    font-size: 4.6em; line-height: .78;
+    padding: .06em .12em 0 0;
+    color: var(--ember);
+    font-weight: 400;
+  }
+  .intro-text { display: grid; gap: 1.6rem; align-content: start; }
+  .intro-text .lead + p { color: var(--muted); max-width: 34rem; }
+  .intro figure { margin: 0; }
+  .intro .ph { aspect-ratio: 4 / 5; }
+
+  figcaption { font-family: var(--serif); font-style: italic; font-size: 1.05rem; color: var(--muted); margin-top: .8rem; line-height: 1.4; }
+
+  /* ---------- Sections ---------- */
+  .section { padding-bottom: clamp(5rem, 12vw, 10rem); }
+  .section h2 { font-size: clamp(2.5rem, 5.4vw, 5rem); line-height: 1; letter-spacing: -.01em; }
+  .section-text { display: grid; gap: 1.6rem; align-content: end; }
+  .section-text > p { color: var(--muted); max-width: 32rem; }
+  .figure-lg { margin: 0; }
+  .figure-lg .ph { aspect-ratio: 4 / 5; }
+
+  .menu { list-style: none; margin: .6rem 0 0; padding: 0; }
+  .menu li { padding-block: 1.15rem; border-top: 1px solid var(--line); }
+  .menu li:last-child { border-bottom: 1px solid var(--line); }
+  .menu h3 { font-size: 1.65rem; line-height: 1.15; margin-bottom: .25rem; }
+  .menu p { color: var(--muted); font-size: 1rem; line-height: 1.55; }
+
+  .strip { display: grid; grid-template-columns: 1fr; gap: var(--gutter); margin-top: clamp(3rem, 7vw, 6rem); }
+  .strip figure { margin: 0; }
+  .strip .ph { aspect-ratio: 4 / 3; }
+
+  .families { margin: .6rem 0 0; padding: 0; }
+  .families div { display: grid; grid-template-columns: 1fr; gap: .15rem; padding-block: 1.1rem; border-top: 1px solid var(--line); }
+  .families div:last-child { border-bottom: 1px solid var(--line); }
+  .families dt { font-family: var(--serif); font-size: 1.65rem; line-height: 1.15; }
+  .families dd { margin: 0; color: var(--muted); font-size: 1rem; line-height: 1.55; }
+
+  .duo { display: grid; grid-template-columns: 2fr 1fr; gap: var(--gutter); align-items: end; }
+  .duo figure { margin: 0; }
+  .duo .ph--cheese { aspect-ratio: 3 / 4; }
+  .duo .ph--cheese-small { aspect-ratio: 3 / 5; }
+
+  /* ---------- Bandeau plein cadre ---------- */
+  .band { position: relative; min-height: 78vh; min-height: 78svh; display: grid; align-items: center; overflow: hidden; margin-bottom: 0; }
+  .band > .ph { position: absolute; inset: 0; z-index: 0; }
+  .band-shade { position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, rgba(23, 17, 14, .82) 0%, rgba(23, 17, 14, .2) 70%); }
+  .band .wrap { position: relative; z-index: 2; padding-block: 5rem; }
+  .band p { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(2.2rem, 5.6vw, 5rem); line-height: 1.05; max-width: 17ch; }
+
+  /* ---------- Pied de page ---------- */
+  footer { background: var(--ink-2); padding-block: clamp(4rem, 9vw, 7rem) 2rem; }
+  footer h2 { font-size: 1.9rem; line-height: 1.1; margin-bottom: 1.2rem; }
+  .foot-grid { display: grid; grid-template-columns: 1fr; gap: 3rem var(--gutter); }
+  .foot-name { font-family: var(--serif); font-style: italic; font-size: clamp(2.4rem, 4.5vw, 3.6rem); line-height: 1; margin-bottom: 1.4rem; }
+  .foot-col p, .foot-col address { color: var(--muted); }
+  .foot-col address { color: var(--paper); margin-bottom: 1rem; }
+  .text-link { color: var(--paper); text-decoration: underline; text-decoration-color: var(--ember); text-underline-offset: .3em; text-decoration-thickness: 1px; }
+  .text-link:hover { text-decoration-thickness: 2px; }
+  .foot-actions { display: grid; gap: 1.2rem; justify-items: start; }
+
+  table.hours { width: 100%; border-collapse: collapse; font-size: 1rem; }
+  .hours th, .hours td { padding: .7rem 0; border-top: 1px solid var(--line); vertical-align: top; font-weight: 300; }
+  .hours tr:last-child th, .hours tr:last-child td { border-bottom: 1px solid var(--line); }
+  .hours th { text-align: left; font-weight: 400; padding-right: 1rem; text-transform: capitalize; }
+  .hours td { text-align: right; color: var(--muted); }
+  .hours tr.closed td { font-style: italic; }
+  .hours tr.today th, .hours tr.today td { color: var(--ember); }
+
+  .legal { margin-top: clamp(3rem, 7vw, 5rem); padding-top: 1.4rem; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem 2rem; font-size: .9rem; color: var(--muted); }
+
+  /* ---------- Desktop ---------- */
+  @media (min-width: 900px) {
+    .grid, .foot-grid { grid-template-columns: repeat(12, 1fr); }
+
+    .hero-body { grid-template-columns: repeat(12, 1fr); column-gap: var(--gutter); }
+    .hero h1 { grid-column: 1 / 9; }
+    .hero-side { grid-column: 9 / 13; padding-bottom: .8rem; }
+
+    .intro-text { grid-column: 2 / 8; }
+    .intro figure { grid-column: 9 / 13; margin-top: 6rem; }
+
+    .charcut .figure-lg { grid-column: 1 / 8; margin-left: calc(var(--pad) * -1); }
+    .charcut .section-text { grid-column: 9 / 13; }
+
+    .strip { grid-template-columns: repeat(3, 1fr); align-items: start; }
+    .strip figure:nth-child(2) { margin-top: 4.5rem; }
+    .strip figure:nth-child(2) .ph { aspect-ratio: 3 / 4; }
+    .strip figure:nth-child(3) { margin-top: 1.5rem; }
+
+    .cheese .section-text { grid-column: 1 / 6; order: 1; }
+    .cheese .duo { grid-column: 7 / 13; order: 2; margin-right: calc(var(--pad) * -1); }
+
+    .families div { grid-template-columns: 9.5rem 1fr; align-items: baseline; gap: 1.5rem; }
+
+    .foot-grid > :nth-child(1) { grid-column: 1 / 5; }
+    .foot-grid > :nth-child(2) { grid-column: 6 / 10; }
+    .foot-grid > :nth-child(3) { grid-column: 11 / 13; }
+  }
+  @media (min-width: 900px) and (max-width: 1180px) {
+    .foot-grid > :nth-child(1) { grid-column: 1 / 6; }
+    .foot-grid > :nth-child(2) { grid-column: 7 / 13; }
+    .foot-grid > :nth-child(3) { grid-column: 1 / 13; }
+  }
+  @media (max-width: 899px) {
+    .charcut .figure-lg { margin-left: calc(var(--pad) * -1); margin-right: calc(var(--pad) * -1); }
+    .cheese .duo { margin-right: calc(var(--pad) * -1); }
+    .cheese .section-text { order: 1; }
+    .cheese .duo { order: 2; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero" id="accueil">
+  <div class="ph ph--hero" id="hero-gl" aria-hidden="true"></div>
+  <div class="hero-cheese" aria-hidden="true">
+    <svg viewBox="0 0 600 600" role="presentation">
+      <defs>
+        <radialGradient id="cheeseGlow"><stop stop-color="#f6c86b" stop-opacity=".42"/><stop offset="1" stop-color="#f6c86b" stop-opacity="0"/></radialGradient>
+        <linearGradient id="wheelTop" x1=".15" y1=".1" x2=".85" y2=".9"><stop stop-color="#ffe5a0"/><stop offset=".48" stop-color="#e9ad4f"/><stop offset="1" stop-color="#a95c22"/></linearGradient>
+        <linearGradient id="wheelSide" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#b96b2e"/><stop offset="1" stop-color="#552912"/></linearGradient>
+        <filter id="softGlow"><feGaussianBlur stdDeviation="7"/></filter>
+      </defs>
+      <circle cx="304" cy="292" r="245" fill="url(#cheeseGlow)"/>
+      <g class="cheese-aura" fill="none" stroke="#edbd69" stroke-opacity=".32">
+        <ellipse cx="300" cy="300" rx="220" ry="92" transform="rotate(-24 300 300)" stroke-width="1.2"/>
+        <ellipse cx="300" cy="300" rx="242" ry="112" transform="rotate(31 300 300)" stroke-width=".8" stroke-dasharray="2 12"/>
+        <circle cx="300" cy="300" r="226" stroke-dasharray="1 18" stroke-width="2"/>
+      </g>
+      <g class="cheese-wheel">
+        <ellipse cx="304" cy="386" rx="177" ry="48" fill="#050302" opacity=".55" filter="url(#softGlow)"/>
+        <path d="M155 263 367 177q32-13 55 10l54 56-8 154q-2 27-30 39l-213 78q-30 11-55-9l-52-44 5-157q1-28 32-41Z" fill="url(#wheelSide)" stroke="#f0bd67" stroke-opacity=".62" stroke-width="3"/>
+        <path d="m155 263 211-86q31-13 54 10l56 56-223 89q-30 12-55-10Z" fill="#f2c86e" opacity=".8"/>
+        <path d="M155 263 367 177q32-13 55 10l54 56-223 89q-30 12-55-10Z" fill="url(#wheelTop)" stroke="#ffe6a0" stroke-width="3"/>
+        <path d="m451 243 25 18-8 136q-2 27-30 39l-213 78q-30 11-55-9l-24-19 212-84q30-12 31-40Z" fill="url(#wheelSide)" opacity=".96"/>
+        <g fill="#9b5b25" opacity=".78">
+          <ellipse cx="220" cy="240" rx="11" ry="8" transform="rotate(-23 220 240)"/><ellipse cx="287" cy="212" rx="8" ry="6" transform="rotate(-23 287 212)"/>
+          <ellipse cx="355" cy="204" rx="12" ry="8" transform="rotate(14 355 204)"/><ellipse cx="402" cy="240" rx="9" ry="7" transform="rotate(14 402 240)"/>
+          <ellipse cx="269" cy="273" rx="12" ry="8" transform="rotate(-18 269 273)"/><ellipse cx="344" cy="249" rx="8" ry="6" transform="rotate(-18 344 249)"/>
+          <ellipse cx="206" cy="277" rx="7" ry="5"/><ellipse cx="382" cy="275" rx="8" ry="6"/>
+        </g>
+        <path class="cheese-glint" d="m173 255 192-77q28-11 45 5" fill="none" stroke="#fff0c1" stroke-width="4" stroke-linecap="round" opacity=".55"/>
+      </g>
+      <g fill="#ffd785">
+        <circle cx="122" cy="338" r="3"/><circle cx="457" cy="156" r="2.5"/><circle cx="440" cy="405" r="3"/><circle cx="196" cy="135" r="2"/>
+      </g>
+    </svg>
+  </div>
+  <div class="hero-shade"></div>
+
+  <div class="topbar">
+    <a class="wordmark" href="#accueil">Bon Appetit</a>
+    <nav aria-label="Navigation principale">
+      <a href="#plateaux">Charcuterie</a>
+      <a href="#fromages">Fromagerie</a>
+      <a href="#horaires">Horaires</a>
+    </nav>
+  </div>
+
+  <div class="hero-body">
+    <h1>Le goût de la table française.</h1>
+    <div class="hero-side">
+      <p>Charcuterie et fromagerie à Angers : jambons, terrines, pâtés, fromages affinés et plateaux composés selon vos envies.</p>
+      <a class="btn" href="https://www.google.com/maps/place//data=!4m2!3m1!1s0x480879000b8e94e5:0x5a47e3d7f608d90a?sa=X&amp;ved=1t:8290&amp;ictx=111" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.94 6.02 6.56.95-4.75 4.63 1.12 6.53L12 17.55l-5.87 3.08 1.12-6.53L2.5 9.47l6.56-.95L12 2.5z"/></svg>
+        Noter Bon Appetit sur Google
+      </a>
+      <p class="status" data-status hidden><span class="dot" aria-hidden="true"></span><span data-status-text></span></p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="intro">
+    <div class="wrap">
+      <div class="grid">
+        <div class="intro-text">
+          <p class="lead">Chez Bon Appetit, on choisit, on tranche et on emballe avec soin ce qui fait un vrai repas : un jambon, une terrine, un chèvre bien fait, un bleu qui a du caractère.</p>
+          <p>Passez au comptoir, demandez conseil, repartez avec de quoi composer votre table, pour un déjeuner en semaine comme pour un dimanche qui s'étire.</p>
+        </div>
+        <figure>
+          <div class="ph ph--intro" role="img" aria-label="Photo : gros plan sur une planche de service">
+            <svg class="food-art" viewBox="0 0 800 1000" aria-hidden="true"><defs><linearGradient id="board1" x2="0" y2="1"><stop stop-color="#94603a"/><stop offset="1" stop-color="#3f2318"/></linearGradient><radialGradient id="light1"><stop stop-color="#e8a44c" stop-opacity=".5"/><stop offset="1" stop-color="#24120c" stop-opacity="0"/></radialGradient></defs><rect width="800" height="1000" fill="#23140f"/><ellipse cx="430" cy="480" rx="400" ry="520" fill="url(#light1)"/><rect x="92" y="120" width="620" height="760" rx="280" fill="url(#board1)" stroke="#d19a57" stroke-opacity=".65" stroke-width="8"/><ellipse cx="400" cy="500" rx="255" ry="325" fill="#302018" stroke="#e5b46d" stroke-width="5"/><g fill="#c34e39" stroke="#e88669" stroke-width="5"><ellipse cx="300" cy="325" rx="87" ry="52" transform="rotate(-28 300 325)"/><ellipse cx="450" cy="290" rx="91" ry="53" transform="rotate(18 450 290)"/><ellipse cx="520" cy="405" rx="90" ry="54" transform="rotate(-17 520 405)"/><ellipse cx="310" cy="465" rx="92" ry="53" transform="rotate(17 310 465)"/></g><g fill="#f1d287" stroke="#fff0bd" stroke-width="5"><path d="m250 585 150-135 125 150-149 135z"/><path d="m378 725 126-113 88 117-131 103z"/></g><g fill="#683b22"><circle cx="320" cy="325" r="12"/><circle cx="451" cy="288" r="13"/><circle cx="520" cy="405" r="12"/></g><g fill="#708446"><ellipse cx="222" cy="690" rx="36" ry="17" transform="rotate(-25 222 690)"/><ellipse cx="575" cy="540" rx="36" ry="17" transform="rotate(30 575 540)"/><ellipse cx="250" cy="740" rx="34" ry="16"/></g><path d="M152 230 94 190l195 120-12 15z" fill="#c6c5bd"/><path d="m92 188 28-15-15 29z" fill="#f0e8d9"/></svg>
+          </div>
+          <figcaption>Ce qui se partage, se coupe à table.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section charcut" id="plateaux" aria-labelledby="t-charcut">
+    <div class="wrap">
+      <div class="grid">
+        <figure class="figure-lg">
+          <div class="ph ph--charcut" role="img" aria-label="Photo : plateau de charcuterie garni">
+            <svg class="food-art" viewBox="0 0 1000 1250" aria-hidden="true"><defs><radialGradient id="bg2"><stop stop-color="#bd713d" stop-opacity=".48"/><stop offset="1" stop-color="#1c100b" stop-opacity="0"/></radialGradient><linearGradient id="wood2" x2="0" y2="1"><stop stop-color="#9b6338"/><stop offset="1" stop-color="#442619"/></linearGradient></defs><rect width="1000" height="1250" fill="#21120c"/><ellipse cx="540" cy="520" rx="530" ry="620" fill="url(#bg2)"/><ellipse cx="510" cy="640" rx="402" ry="520" fill="url(#wood2)" stroke="#dcaa69" stroke-width="9"/><ellipse cx="510" cy="635" rx="345" ry="455" fill="#2a1a11" stroke="#f0c78b" stroke-opacity=".65" stroke-width="5"/><g fill="#c54b3c" stroke="#ec9275" stroke-width="5"><path d="M236 390q-25-105 56-122 84-16 102 74l-16 134q-75 22-132-10z"/><path d="M395 350q-3-109 80-112 87 0 84 96l-33 134q-78 12-128-29z"/><path d="M564 367q24-104 107-81 82 24 55 116l-65 119q-79-10-112-70z"/><path d="M270 560q-15-102 68-119 84-14 97 76l-28 131q-79 17-128-24z"/><path d="M510 565q6-102 91-104 87 3 74 96l-50 124q-78 0-115-55z"/></g><g fill="#692d25"><circle cx="300" cy="355" r="11"/><circle cx="443" cy="310" r="12"/><circle cx="623" cy="340" r="13"/></g><g fill="#efd18a" stroke="#fff0be" stroke-width="5"><path d="m356 720 175-140 123 148-174 137z"/><path d="m262 790 92-83 85 102-97 79z"/></g><path d="M545 800q145-68 198 37l-71 80q-83-54-150-9z" fill="#e6d4b5"/><g fill="#71874a"><ellipse cx="300" cy="870" rx="42" ry="19" transform="rotate(-28 300 870)"/><ellipse cx="370" cy="900" rx="43" ry="18"/><ellipse cx="693" cy="700" rx="44" ry="19" transform="rotate(24 693 700)"/></g><circle cx="520" cy="910" r="37" fill="#ad562c"/><circle cx="520" cy="910" r="15" fill="#462719"/></svg>
+          </div>
+          <figcaption style="padding-left: var(--pad)">Le plateau du comptoir, prêt à être posé au centre de la table.</figcaption>
+        </figure>
+        <div class="section-text">
+          <h2 id="t-charcut">Les plateaux de charcuterie</h2>
+          <p>Des pièces choisies pour se répondre : le tendre, le fumé, le poivré, le croquant du cornichon pour finir de convaincre.</p>
+          <ul class="menu">
+            <li>
+              <h3>Le plateau du comptoir</h3>
+              <p>Jambon blanc, jambon sec, rosette, pâté de campagne et cornichons.</p>
+            </li>
+            <li>
+              <h3>Le plateau de fête</h3>
+              <p>Une sélection plus large pour les grandes tablées, avec terrine et saucisson à trancher.</p>
+            </li>
+            <li>
+              <h3>Le plateau sur mesure</h3>
+              <p>Vous choisissez vos pièces, nous composons et emballons pour l'emporter.</p>
+            </li>
+          </ul>
+          <p>Plateaux sur commande : passez au comptoir pour les tailles et les tarifs.</p>
+        </div>
+      </div>
+
+      <div class="strip">
+        <figure>
+          <div class="ph ph--jambon" role="img" aria-label="Photo : jambons tranchés">
+            <svg class="food-art" viewBox="0 0 800 600" aria-hidden="true"><defs><radialGradient id="bg3"><stop stop-color="#b94e3c" stop-opacity=".48"/><stop offset="1" stop-color="#1b0e0b" stop-opacity="0"/></radialGradient><linearGradient id="ham3" x2=".9" y2="1"><stop stop-color="#f0a183"/><stop offset="1" stop-color="#a93731"/></linearGradient></defs><rect width="800" height="600" fill="#25140f"/><rect width="800" height="600" fill="url(#bg3)"/><path d="M150 145q185-115 478 13l54 242q-270 138-553 5z" fill="#57321e" stroke="#b5814d" stroke-width="8"/><g fill="url(#ham3)" stroke="#f3bd9c" stroke-width="4"><ellipse cx="265" cy="260" rx="125" ry="77" transform="rotate(-26 265 260)"/><ellipse cx="403" cy="244" rx="127" ry="78" transform="rotate(13 403 244)"/><ellipse cx="530" cy="296" rx="124" ry="75" transform="rotate(-14 530 296)"/><ellipse cx="347" cy="355" rx="126" ry="77" transform="rotate(-9 347 355)"/></g><g fill="#8d392c"><ellipse cx="265" cy="260" rx="26" ry="17"/><ellipse cx="406" cy="243" rx="25" ry="16"/><ellipse cx="531" cy="295" rx="26" ry="16"/></g><g fill="#ead28e"><circle cx="168" cy="431" r="27"/><circle cx="214" cy="444" r="23"/><circle cx="596" cy="425" r="28"/></g></svg>
+          </div>
+          <figcaption>Jambons, blanc et sec.</figcaption>
+        </figure>
+        <figure>
+          <div class="ph ph--terrine" role="img" aria-label="Photo : terrine et pâté">
+            <svg class="food-art" viewBox="0 0 800 600" aria-hidden="true"><defs><radialGradient id="bg4"><stop stop-color="#bb8047" stop-opacity=".45"/><stop offset="1" stop-color="#1b100a" stop-opacity="0"/></radialGradient><linearGradient id="terrine4" x2="0" y2="1"><stop stop-color="#b76a3a"/><stop offset="1" stop-color="#57301c"/></linearGradient></defs><rect width="800" height="600" fill="#21140d"/><rect width="800" height="600" fill="url(#bg4)"/><ellipse cx="405" cy="365" rx="275" ry="145" fill="#4a2d1c" stroke="#d5a76c" stroke-width="8"/><path d="M242 215h324l-25 155q-7 42-42 46H310q-38-4-43-46z" fill="url(#terrine4)" stroke="#e2bb80" stroke-width="7"/><path d="M225 218q145-78 354 0l-19 50q-156-62-319 0z" fill="#c68a4d" stroke="#f0cc8f" stroke-width="6"/><path d="M276 278q118-45 256 0l-13 98q-105 35-229 0z" fill="#b34b38"/><g fill="#eee1c5"><circle cx="329" cy="319" r="13"/><circle cx="400" cy="345" r="16"/><circle cx="475" cy="308" r="12"/><circle cx="447" cy="367" r="10"/></g><path d="M282 473h240" stroke="#e2b978" stroke-width="5" stroke-linecap="round"/></svg>
+          </div>
+          <figcaption>Terrines et pâtés de campagne.</figcaption>
+        </figure>
+        <figure>
+          <div class="ph ph--sec" role="img" aria-label="Photo : saucissons secs">
+            <svg class="food-art" viewBox="0 0 800 600" aria-hidden="true"><defs><radialGradient id="bg5"><stop stop-color="#923e2b" stop-opacity=".48"/><stop offset="1" stop-color="#170c08" stop-opacity="0"/></radialGradient><linearGradient id="salami5" x2="0" y2="1"><stop stop-color="#b45b3d"/><stop offset=".5" stop-color="#823525"/><stop offset="1" stop-color="#4e2119"/></linearGradient></defs><rect width="800" height="600" fill="#1c100b"/><rect width="800" height="600" fill="url(#bg5)"/><path d="M110 444 505 152q28-20 55 14l17 21-409 300q-28 20-50-14z" fill="url(#salami5)" stroke="#d08a60" stroke-width="6"/><path d="m154 457 414-286q25-18 47 12l13 18-423 295q-28 18-48-15z" fill="#873a2a" stroke="#e09b6d" stroke-width="5"/><g fill="#eed3a0"><circle cx="212" cy="391" r="5"/><circle cx="288" cy="337" r="6"/><circle cx="372" cy="277" r="5"/><circle cx="463" cy="217" r="6"/><circle cx="249" cy="432" r="5"/><circle cx="347" cy="366" r="6"/><circle cx="447" cy="295" r="5"/></g><ellipse cx="570" cy="172" rx="39" ry="28" transform="rotate(48 570 172)" fill="#f0d5a7" stroke="#bd7654" stroke-width="6"/><ellipse cx="613" cy="214" rx="40" ry="28" transform="rotate(48 613 214)" fill="#f0d5a7" stroke="#bd7654" stroke-width="6"/><ellipse cx="654" cy="255" rx="39" ry="28" transform="rotate(48 654 255)" fill="#f0d5a7" stroke="#bd7654" stroke-width="6"/><g fill="#77904f"><ellipse cx="173" cy="190" rx="48" ry="17" transform="rotate(-35 173 190)"/><ellipse cx="215" cy="207" rx="49" ry="16" transform="rotate(23 215 207)"/></g></svg>
+          </div>
+          <figcaption>Saucissons secs, à couper épais.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section cheese" id="fromages" aria-labelledby="t-cheese">
+    <div class="wrap">
+      <div class="grid">
+        <div class="section-text">
+          <h2 id="t-cheese">La fromagerie</h2>
+          <p>Du plus doux au plus affirmé, des fromages de France à goûter, à comparer, à emporter entiers ou à la coupe.</p>
+          <dl class="families">
+            <div>
+              <dt>Pâtes molles</dt>
+              <dd>Camembert, brie, coulommiers.</dd>
+            </div>
+            <div>
+              <dt>Pâtes pressées</dt>
+              <dd>Comté, cantal, saint-nectaire.</dd>
+            </div>
+            <div>
+              <dt>Chèvres</dt>
+              <dd>Frais, mi-secs ou bien affinés, en bûche ou en crottin.</dd>
+            </div>
+            <div>
+              <dt>Bleus</dt>
+              <dd>Roquefort, fourme d'Ambert, bleu d'Auvergne.</dd>
+            </div>
+          </dl>
+        </div>
+        <div class="duo">
+          <figure>
+            <div class="ph ph--cheese" role="img" aria-label="Photo : plateau de fromages affinés">
+              <svg class="food-art" viewBox="0 0 800 1100" aria-hidden="true"><defs><radialGradient id="bg6"><stop stop-color="#d39a49" stop-opacity=".48"/><stop offset="1" stop-color="#21130b" stop-opacity="0"/></radialGradient><linearGradient id="rind6" x2="0" y2="1"><stop stop-color="#e1b777"/><stop offset="1" stop-color="#774522"/></linearGradient></defs><rect width="800" height="1100" fill="#21140d"/><ellipse cx="400" cy="500" rx="410" ry="500" fill="url(#bg6)"/><ellipse cx="400" cy="565" rx="310" ry="420" fill="#73472b" stroke="#d4a367" stroke-width="10"/><ellipse cx="400" cy="560" rx="258" ry="355" fill="#302016" stroke="#f0cb8a" stroke-width="5"/><path d="M226 327q94-72 192-6l-15 196q-89 49-185-8z" fill="#f4d688" stroke="#fff0b0" stroke-width="7"/><path d="M415 302q111-43 166 39l-33 174q-106 35-170-31z" fill="#d6a44c" stroke="#f3d385" stroke-width="8"/><g fill="#715429"><circle cx="276" cy="380" r="9"/><circle cx="348" cy="443" r="11"/><circle cx="467" cy="365" r="9"/></g><path d="M244 630q23-113 121-109t116 107q-15 116-127 116-98-5-110-114" fill="#eee0bf" stroke="#fff4d8" stroke-width="7"/><path d="M244 630q23-113 121-109t116 107q-15 116-127 116-98-5-110-114" fill="none" stroke="#b89865" stroke-width="18"/><path d="m411 692 132-130 84 143-148 111z" fill="#e5b84f" stroke="#f4d777" stroke-width="7"/><path d="m416 695 116-114 56 117-105 93z" fill="#72915c" opacity=".75"/><g fill="#a84435"><circle cx="297" cy="825" r="47"/><circle cx="392" cy="844" r="42"/></g><g fill="#f1d28c"><ellipse cx="517" cy="817" rx="48" ry="20" transform="rotate(-26 517 817)"/><ellipse cx="570" cy="784" rx="46" ry="19" transform="rotate(-26 570 784)"/></g></svg>
+            </div>
+            <figcaption>Un plateau pour finir le repas.</figcaption>
+          </figure>
+          <figure>
+            <div class="ph ph--cheese-small" role="img" aria-label="Photo : détail d'un fromage à la coupe">
+              <svg class="food-art" viewBox="0 0 600 1000" aria-hidden="true"><defs><radialGradient id="bg7"><stop stop-color="#d5ae68" stop-opacity=".5"/><stop offset="1" stop-color="#21150d" stop-opacity="0"/></radialGradient></defs><rect width="600" height="1000" fill="#21150d"/><rect width="600" height="1000" fill="url(#bg7)"/><circle cx="303" cy="486" r="222" fill="#e2c784" stroke="#f9e5ad" stroke-width="14"/><circle cx="303" cy="486" r="183" fill="#f4e6c5" stroke="#a98b57" stroke-width="12"/><circle cx="303" cy="486" r="147" fill="#eee0ba"/><g fill="#8a7651" opacity=".72"><circle cx="242" cy="418" r="9"/><circle cx="350" cy="455" r="11"/><circle cx="279" cy="527" r="8"/><circle cx="379" cy="558" r="7"/><circle cx="224" cy="565" r="6"/><circle cx="326" cy="374" r="7"/></g><path d="M95 771 501 295" stroke="#c8c4b9" stroke-width="24" stroke-linecap="round"/><path d="m498 290 28-33-4 46z" fill="#f4eee0"/><path d="M133 790 505 357" stroke="#fff4d1" stroke-opacity=".3" stroke-width="6"/></svg>
+            </div>
+            <figcaption>La coupe, à la demande.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-label="Photo d'ambiance">
+    <div class="ph ph--band" role="img" aria-label="Photo pleine largeur : table dressée avec charcuterie, fromages et pain">
+      <svg class="food-art" viewBox="0 0 1600 900" aria-hidden="true"><defs><radialGradient id="bg8"><stop stop-color="#a95830" stop-opacity=".45"/><stop offset="1" stop-color="#160c08" stop-opacity="0"/></radialGradient><linearGradient id="table8" x2="0" y2="1"><stop stop-color="#724628"/><stop offset="1" stop-color="#2d190f"/></linearGradient></defs><rect width="1600" height="900" fill="#160d09"/><ellipse cx="940" cy="400" rx="850" ry="580" fill="url(#bg8)"/><path d="M0 635q800-180 1600 0v265H0z" fill="url(#table8)"/><ellipse cx="1050" cy="490" rx="370" ry="205" fill="#50301c" stroke="#cb9b61" stroke-width="10"/><ellipse cx="1050" cy="475" rx="315" ry="159" fill="#291a12" stroke="#ecd09c" stroke-width="5"/><g fill="#c5503f" stroke="#e99576" stroke-width="6"><ellipse cx="877" cy="431" rx="108" ry="57" transform="rotate(-24 877 431)"/><ellipse cx="1044" cy="389" rx="108" ry="55" transform="rotate(16 1044 389)"/><ellipse cx="1194" cy="447" rx="105" ry="56" transform="rotate(-10 1194 447)"/></g><g fill="#efd58b" stroke="#fff0bf" stroke-width="6"><path d="m924 533 102-112 106 106-112 101z"/><path d="m1088 547 88-83 79 95-92 79z"/></g><path d="M274 415q95-76 206-11l-18 132q-98 44-184-8z" fill="#f1d78c" stroke="#fff0bc" stroke-width="7"/><path d="M305 574q121-41 212 27l-40 94q-100 22-177-30z" fill="#eee2c9" stroke="#fff3d7" stroke-width="7"/><path d="M440 689q146-22 205 79" fill="none" stroke="#bf7748" stroke-width="30" stroke-linecap="round"/><g fill="#77894c"><ellipse cx="1282" cy="581" rx="56" ry="23" transform="rotate(-30 1282 581)"/><ellipse cx="1357" cy="565" rx="54" ry="22" transform="rotate(24 1357 565)"/><ellipse cx="783" cy="599" rx="50" ry="21"/></g></svg>
+    </div>
+    <div class="band-shade"></div>
+    <div class="wrap">
+      <p>À emporter, à offrir, ou à poser au milieu de la table.</p>
+    </div>
+  </section>
+</main>
+
+<footer id="horaires">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <p class="foot-name">Bon Appetit</p>
+        <h2>Adresse</h2>
+        <address>18 rue Pocquet de Livonnières<br>49100 Angers</address>
+        <a class="text-link" href="https://www.google.com/maps/place//data=!4m2!3m1!1s0x480879000b8e94e5:0x5a47e3d7f608d90a?sa=X&amp;ved=1t:8290&amp;ictx=111" target="_blank" rel="noopener">Voir l'itinéraire sur Google Maps</a>
+      </div>
+
+      <div class="foot-col">
+        <h2>Horaires</h2>
+        <table class="hours">
+          <caption class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap">Horaires d'ouverture de la semaine</caption>
+          <tbody>
+            <tr data-day="1" class="closed"><th scope="row">lundi</th><td>Fermé</td></tr>
+            <tr data-day="2"><th scope="row">mardi</th><td>8h30 – 14h00, 15h30 – 19h30</td></tr>
+            <tr data-day="3"><th scope="row">mercredi</th><td>8h30 – 14h00, 15h30 – 19h30</td></tr>
+            <tr data-day="4"><th scope="row">jeudi</th><td>8h30 – 14h00, 15h30 – 19h30</td></tr>
+            <tr data-day="5"><th scope="row">vendredi</th><td>8h30 – 14h00, 15h30 – 19h30</td></tr>
+            <tr data-day="6"><th scope="row">samedi</th><td>8h30 – 14h00, 15h30 – 19h30</td></tr>
+            <tr data-day="0"><th scope="row">dimanche</th><td>9h00 – 13h00</td></tr>
+          </tbody>
+        </table>
+        <p class="status" data-status hidden style="margin-top:1rem"><span class="dot" aria-hidden="true"></span><span data-status-text></span></p>
+      </div>
+
+      <div class="foot-col foot-actions">
+        <h2>Votre avis</h2>
+        <p>Un avis Google aide d'autres gourmands à nous trouver.</p>
+        <a class="btn btn--ghost" href="https://www.google.com/maps/place//data=!4m2!3m1!1s0x480879000b8e94e5:0x5a47e3d7f608d90a?sa=X&amp;ved=1t:8290&amp;ictx=111" target="_blank" rel="noopener">Laisser un avis</a>
+      </div>
+    </div>
+
+    <div class="legal">
+      <span>© 2026 Bon Appetit, Angers</span>
+      <span>Charcuterie et fromagerie françaises</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    // Horaires : index 0 = dimanche … 6 = samedi (comme Date.getDay)
+    var semaine = [[510, 840], [930, 1170]];
+    var HOURS = { 0: [[540, 780]], 1: [], 2: semaine, 3: semaine, 4: semaine, 5: semaine, 6: semaine };
+    var NOMS = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
+    var MAP = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+
+    function fmt(min) {
+      return Math.floor(min / 60) + 'h' + String(min % 60).padStart(2, '0');
+    }
+
+    function parisNow() {
+      var parts = new Intl.DateTimeFormat('en-GB', {
+        timeZone: 'Europe/Paris', weekday: 'short', hour: 'numeric', minute: 'numeric', hourCycle: 'h23'
+      }).formatToParts(new Date());
+      var o = {};
+      parts.forEach(function (p) { o[p.type] = p.value; });
+      return { day: MAP[o.weekday], min: parseInt(o.hour, 10) * 60 + parseInt(o.minute, 10) };
+    }
+
+    try {
+      var now = parisNow();
+      var slots = HOURS[now.day];
+      var open = null, text = '';
+
+      for (var i = 0; i < slots.length; i++) {
+        if (now.min >= slots[i][0] && now.min < slots[i][1]) { open = slots[i]; break; }
+      }
+
+      if (open) {
+        text = 'Ouvert maintenant, jusqu\u2019à ' + fmt(open[1]);
+      } else {
+        var later = null;
+        for (var j = 0; j < slots.length; j++) { if (slots[j][0] > now.min) { later = slots[j]; break; } }
+        if (later) {
+          text = 'Fermé pour le moment, réouverture à ' + fmt(later[0]);
+        } else {
+          for (var k = 1; k <= 7; k++) {
+            var d = (now.day + k) % 7;
+            if (HOURS[d].length) {
+              text = 'Fermé pour le moment, ouverture ' + (k === 1 ? 'demain' : NOMS[d]) + ' à ' + fmt(HOURS[d][0][0]);
+              break;
+            }
+          }
+        }
+      }
+
+      document.querySelectorAll('[data-status]').forEach(function (el) {
+        el.hidden = false;
+        el.classList.toggle('is-open', !!open);
+        el.querySelector('[data-status-text]').textContent = text;
+      });
+
+      var row = document.querySelector('tr[data-day="' + now.day + '"]');
+      if (row) { row.classList.add('today'); row.setAttribute('aria-current', 'date'); }
+    } catch (e) { /* la page reste correcte sans le statut d'ouverture */ }
+  })();
+</script>
+<script>
+(function () {
+  "use strict";
+
+  /* Halo ambré très lent + fines particules dorées. Volontairement presque imperceptible :
+     de la vie autour du texte, sans jamais lui voler l'attention. Canvas 2D, aucune image. */
+
+  var host = document.getElementById("hero-gl");
+  if (!host) return;
+  var hero = host.closest(".hero") || host;
+
+  var canvas = document.createElement("canvas");
+  canvas.setAttribute("aria-hidden", "true");
+  canvas.style.cssText = "position:absolute;inset:0;width:100%;height:100%;display:block";
+  host.insertBefore(canvas, host.firstChild);
+  var ctx = canvas.getContext("2d", { alpha: false });
+  if (!ctx) { canvas.style.display = "none"; return; }
+
+  var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var mq = window.matchMedia("(max-width: 767px)");
+  var BG = "#17110E";
+  var TAU = Math.PI * 2;
+
+  /* Sprite d'une particule : un point doré avec un halo très doux, dessiné une seule fois. */
+  var sprite = document.createElement("canvas");
+  sprite.width = sprite.height = 64;
+  (function () {
+    var s = sprite.getContext("2d");
+    var g = s.createRadialGradient(32, 32, 0, 32, 32, 32);
+    g.addColorStop(0, "rgba(255,226,160,1)");
+    g.addColorStop(0.18, "rgba(240,180,90,.85)");
+    g.addColorStop(0.5, "rgba(214,130,50,.22)");
+    g.addColorStop(1, "rgba(214,130,50,0)");
+    s.fillStyle = g;
+    s.fillRect(0, 0, 64, 64);
+  })();
+
+  var w = 0, h = 0, dpr = 1, parts = [];
+
+  function rand(a, b) { return a + Math.random() * (b - a); }
+
+  function seed() {
+    var count = Math.round(Math.max(26, Math.min(64, (w * h) / (dpr * dpr) / 24000)));
+    parts = [];
+    for (var i = 0; i < count; i++) {
+      var depth = Math.random();               // 0 = loin, 1 = près
+      var far = depth < 0.22;                  // quelques grosses taches floues, très pâles
+      parts.push({
+        x: Math.random(),
+        y: Math.random(),
+        depth: depth,
+        size: far ? rand(9, 16) : rand(1.1, 2.6) * (0.7 + depth * 0.6),
+        alpha: far ? rand(0.05, 0.10) : rand(0.28, 0.6),
+        rise: rand(3, 8) * (0.5 + depth),       // px par seconde, presque à l'arrêt
+        sway: rand(4, 14),                      // amplitude latérale en px
+        swayF: rand(0.04, 0.10),
+        twF: rand(0.15, 0.45),
+        ph: rand(0, TAU)
+      });
+    }
+  }
+
+  function resize() {
+    var rect = host.getBoundingClientRect();
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var nw = Math.max(2, Math.round(rect.width * dpr));
+    var nh = Math.max(2, Math.round(rect.height * dpr));
+    if (nw === w && nh === h) return;
+    w = nw; h = nh;
+    canvas.width = w; canvas.height = h;
+    seed();
+  }
+
+  /* Parallaxe minuscule au pointeur : la lumière et les particules suivent à peine. */
+  var ptr = [0, 0], ptrSm = [0, 0];
+  hero.addEventListener("pointermove", function (e) {
+    var r = host.getBoundingClientRect();
+    if (!r.width || !r.height) return;
+    ptr[0] = (e.clientX - r.left) / r.width - 0.5;
+    ptr[1] = (e.clientY - r.top) / r.height - 0.5;
+  }, { passive: true });
+
+  function draw(t) {
+    var narrow = mq.matches;
+    var bx = narrow ? 0.5 : 0.72, by = narrow ? 0.3 : 0.4;
+
+    ctx.globalCompositeOperation = "source-over";
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = BG;
+    ctx.fillRect(0, 0, w, h);
+
+    /* Halo principal : il dérive sur plus d'une minute et respire toutes les ~16 s. */
+    var cx = (bx + Math.sin(t * TAU / 70) * 0.05 + ptrSm[0] * 0.03) * w;
+    var cy = (by + Math.cos(t * TAU / 90) * 0.035 + ptrSm[1] * 0.03) * h;
+    var R = Math.max(w, h) * (narrow ? 0.62 : 0.55);
+    var a = 0.30 + Math.sin(t * TAU / 16) * 0.05;
+    var g = ctx.createRadialGradient(cx, cy, 0, cx, cy, R);
+    g.addColorStop(0, "rgba(226,132,50," + a.toFixed(3) + ")");
+    g.addColorStop(0.45, "rgba(170,84,28," + (a * 0.42).toFixed(3) + ")");
+    g.addColorStop(1, "rgba(120,56,18,0)");
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, w, h);
+
+    /* Deuxième halo, plus large et plus pâle, sur une autre période : le mouvement ne se répète pas. */
+    var cx2 = (0.5 + Math.cos(t * TAU / 110) * 0.18) * w;
+    var cy2 = (0.78 + Math.sin(t * TAU / 130) * 0.05) * h;
+    var R2 = Math.max(w, h) * 0.7;
+    var a2 = 0.10 + Math.sin(t * TAU / 23 + 1.3) * 0.025;
+    var g2 = ctx.createRadialGradient(cx2, cy2, 0, cx2, cy2, R2);
+    g2.addColorStop(0, "rgba(190,100,34," + a2.toFixed(3) + ")");
+    g2.addColorStop(1, "rgba(120,56,18,0)");
+    ctx.fillStyle = g2;
+    ctx.fillRect(0, 0, w, h);
+
+    /* Particules dorées. */
+    ctx.globalCompositeOperation = "lighter";
+    for (var i = 0; i < parts.length; i++) {
+      var p = parts[i];
+      var y = (p.y - (t * p.rise * dpr) / h) % 1;
+      if (y < 0) y += 1;
+      var x = p.x + (Math.sin(t * p.swayF * TAU + p.ph) * p.sway * dpr) / w;
+      x += ptrSm[0] * 0.012 * (p.depth - 0.4);
+      var px = x * w, py = y * h + ptrSm[1] * 10 * dpr * (p.depth - 0.4);
+      // Elles apparaissent et disparaissent en douceur aux bords haut et bas.
+      var edge = Math.min(1, Math.min(y, 1 - y) * 8);
+      // Elles brillent davantage près du halo.
+      var dx = px - cx, dy = py - cy;
+      var near = 0.55 + 0.45 * Math.exp(-(dx * dx + dy * dy) / (R * R * 0.5));
+      var tw = 0.6 + 0.4 * Math.sin(t * p.twF * TAU + p.ph);
+      var al = p.alpha * tw * edge * near;
+      if (al < 0.004) continue;
+      var s = p.size * dpr * 2.4;
+      ctx.globalAlpha = al;
+      ctx.drawImage(sprite, px - s / 2, py - s / 2, s, s);
+    }
+    ctx.globalAlpha = 1;
+
+    /* Voile sur le côté du texte (bas de l'écran sur mobile : géré par .hero-shade). */
+    ctx.globalCompositeOperation = "source-over";
+    if (!narrow) {
+      var sg = ctx.createLinearGradient(0, 0, w * 0.62, 0);
+      sg.addColorStop(0, "rgba(23,17,14,.82)");
+      sg.addColorStop(1, "rgba(23,17,14,0)");
+      ctx.fillStyle = sg;
+      ctx.fillRect(0, 0, w, h);
+    }
+  }
+
+  var clock = reduced ? 20 : 0, last = 0, running = true, visible = true, raf = 0;
+
+  function tick(now) {
+    if (!running) return;
+    raf = requestAnimationFrame(tick);
+    if (!visible) { last = now; return; }
+    var dt = last ? Math.min(0.05, (now - last) / 1000) : 0;
+    last = now;
+    clock += dt;
+    var k = 1 - Math.exp(-dt * 1.2);        // le pointeur est suivi avec beaucoup d'inertie
+    ptrSm[0] += (ptr[0] - ptrSm[0]) * k;
+    ptrSm[1] += (ptr[1] - ptrSm[1]) * k;
+    draw(clock);
+  }
+
+  resize();
+  draw(clock);
+  if (!reduced) raf = requestAnimationFrame(tick);
+
+  new ResizeObserver(function () { resize(); if (reduced) draw(clock); }).observe(host);
+  new IntersectionObserver(function (e) { visible = e[0] ? e[0].isIntersecting : true; }, { threshold: 0 }).observe(host);
+  document.addEventListener("visibilitychange", function () { visible = !document.hidden; last = 0; });
+})();
+
+</script>
+</body>
+</html>
+
+
+
