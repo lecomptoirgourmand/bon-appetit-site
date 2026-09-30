@@ -175,9 +175,18 @@
   .status.is-open .dot { background: var(--ember); box-shadow: 0 0 0 4px rgba(232, 133, 58, .22); }
 
   @media (prefers-reduced-motion: no-preference) {
-    .hero h1, .hero-side { animation: rise 1.1s cubic-bezier(.2, .7, .2, 1) both; }
-    .hero-side { animation-delay: .25s; }
-    @keyframes rise { from { opacity: 0; transform: translateY(1.5rem); } to { opacity: 1; transform: none; } }
+    .hero .wordmark { animation: hero-enter .72s cubic-bezier(.25, 1, .5, 1) .12s both; }
+    .hero .topbar nav a { animation: hero-enter .68s cubic-bezier(.25, 1, .5, 1) both; }
+    .hero .topbar nav a:nth-child(1) { animation-delay: .2s; }
+    .hero .topbar nav a:nth-child(2) { animation-delay: .29s; }
+    .hero .topbar nav a:nth-child(3) { animation-delay: .38s; }
+    .hero h1 { animation: hero-enter .95s cubic-bezier(.16, 1, .3, 1) .34s both; }
+    .hero-side > p:first-child { animation: hero-enter .82s cubic-bezier(.25, 1, .5, 1) .56s both; }
+    .hero-side > .btn { animation: hero-enter .78s cubic-bezier(.25, 1, .5, 1) .74s both; }
+    .hero-side > .status { animation: hero-enter .72s cubic-bezier(.25, 1, .5, 1) .92s both; }
+    .hero-cheese { animation: cheese-enter .9s cubic-bezier(.16, 1, .3, 1) .16s both, cheese-drift 10s cubic-bezier(.37, 0, .63, 1) 1s infinite; }
+    @keyframes hero-enter { from { opacity: 0; transform: translate3d(0, 1.15rem, 0); } to { opacity: 1; transform: translate3d(0, 0, 0); } }
+    @keyframes cheese-enter { from { opacity: 0; scale: .94; } to { opacity: 1; scale: 1; } }
   }
 
   /* Fromage flottant : clin d'œil cinématographique à Ancient Oath. */
@@ -185,15 +194,15 @@
     position: absolute; z-index: 1; right: clamp(1rem, 8vw, 8rem); top: 50%;
     width: clamp(16rem, 38vw, 36rem); aspect-ratio: 1; transform: translateY(-48%);
     pointer-events: none; filter: drop-shadow(0 2rem 3rem rgba(0,0,0,.55));
-    animation: cheese-drift 9s ease-in-out infinite;
+    translate: 0 0; animation: cheese-drift 10s cubic-bezier(.37, 0, .63, 1) infinite;
   }
   .hero-cheese svg { display: block; width: 100%; height: 100%; overflow: visible; }
-  .cheese-aura { transform-origin: 50% 50%; animation: aura-turn 36s linear infinite; }
-  .cheese-wheel { transform-origin: 50% 50%; animation: wheel-turn 24s ease-in-out infinite; }
-  .cheese-glint { animation: glint 4s ease-in-out infinite alternate; }
-  @keyframes cheese-drift { 0%,100% { margin-top: 0; } 50% { margin-top: -1.1rem; } }
-  @keyframes aura-turn { to { transform: rotate(360deg); } }
-  @keyframes wheel-turn { 0%,100% { transform: rotate(-5deg) translateY(0); } 50% { transform: rotate(2deg) translateY(-.35rem); } }
+  .cheese-aura { opacity: .82; animation: aura-breathe 16s ease-in-out infinite alternate; }
+  .cheese-wheel { transform-origin: 50% 50%; animation: wheel-turn 18s cubic-bezier(.45, .05, .55, .95) infinite; }
+  .cheese-glint { animation: glint 6s ease-in-out infinite alternate; }
+  @keyframes cheese-drift { 0%,100% { translate: 0 0; } 50% { translate: 0 -.55rem; } }
+  @keyframes aura-breathe { from { opacity: .55; } to { opacity: .95; } }
+  @keyframes wheel-turn { 0%,100% { transform: rotate(-1.5deg) translateY(0); } 50% { transform: rotate(1.5deg) translateY(-.12rem); } }
   @keyframes glint { from { opacity: .25; } to { opacity: .8; } }
   @media (max-width: 899px) {
     .hero-cheese { width: clamp(13rem, 57vw, 22rem); right: -1.5rem; top: 40%; opacity: .78; }
@@ -232,7 +241,6 @@
   .menu li:last-child { border-bottom: 1px solid var(--line); }
   .menu h3 { font-size: 1.65rem; line-height: 1.15; margin-bottom: .25rem; }
   .menu p { color: var(--muted); font-size: 1rem; line-height: 1.55; }
-
   .strip { display: grid; grid-template-columns: 1fr; gap: var(--gutter); margin-top: clamp(3rem, 7vw, 6rem); }
   .strip figure { margin: 0; }
   .strip .ph { aspect-ratio: 4 / 3; }
@@ -336,20 +344,36 @@
         <circle cx="300" cy="300" r="226" stroke-dasharray="1 18" stroke-width="2"/>
       </g>
       <g class="cheese-wheel">
-        <ellipse cx="304" cy="386" rx="177" ry="48" fill="#050302" opacity=".55" filter="url(#softGlow)"/>
-        <path d="M155 263 367 177q32-13 55 10l54 56-8 154q-2 27-30 39l-213 78q-30 11-55-9l-52-44 5-157q1-28 32-41Z" fill="url(#wheelSide)" stroke="#f0bd67" stroke-opacity=".62" stroke-width="3"/>
-        <path d="m155 263 211-86q31-13 54 10l56 56-223 89q-30 12-55-10Z" fill="#f2c86e" opacity=".8"/>
-        <path d="M155 263 367 177q32-13 55 10l54 56-223 89q-30 12-55-10Z" fill="url(#wheelTop)" stroke="#ffe6a0" stroke-width="3"/>
-        <path d="m451 243 25 18-8 136q-2 27-30 39l-213 78q-30 11-55-9l-24-19 212-84q30-12 31-40Z" fill="url(#wheelSide)" opacity=".96"/>
-        <g fill="#9b5b25" opacity=".78">
-          <ellipse cx="220" cy="240" rx="11" ry="8" transform="rotate(-23 220 240)"/><ellipse cx="287" cy="212" rx="8" ry="6" transform="rotate(-23 287 212)"/>
-          <ellipse cx="355" cy="204" rx="12" ry="8" transform="rotate(14 355 204)"/><ellipse cx="402" cy="240" rx="9" ry="7" transform="rotate(14 402 240)"/>
-          <ellipse cx="269" cy="273" rx="12" ry="8" transform="rotate(-18 269 273)"/><ellipse cx="344" cy="249" rx="8" ry="6" transform="rotate(-18 344 249)"/>
-          <ellipse cx="206" cy="277" rx="7" ry="5"/><ellipse cx="382" cy="275" rx="8" ry="6"/>
+        <ellipse cx="304" cy="402" rx="180" ry="43" fill="#050302" opacity=".58" filter="url(#softGlow)"/>
+        <!-- Large wedge with a browned natural rind and a clearly visible cut face. -->
+        <path d="m145 315 233-130q25-14 52 1l112 64v79L265 470l-120-67z" fill="url(#wheelSide)" stroke="#623315" stroke-width="5" stroke-linejoin="round"/>
+        <path d="m145 315 120 71v84l-120-67z" fill="#9a5425" stroke="#e4aa58" stroke-width="3"/>
+        <path d="m265 386 277-157v79L265 470z" fill="#b86b2c" stroke="#e4aa58" stroke-width="3"/>
+        <path d="m145 315 233-130q25-14 52 1l112 64-277 157z" fill="url(#wheelTop)" stroke="#ffdfa0" stroke-width="4" stroke-linejoin="round"/>
+        <!-- Golden cut surface and round eyes make the wedge read as aged cheese. -->
+        <path d="m159 318 222-123q22-12 43 0l100 57-259 146z" fill="#f4cc70" opacity=".46"/>
+        <g fill="#9b5b25" opacity=".88">
+          <ellipse cx="219" cy="303" rx="11" ry="7" transform="rotate(-29 219 303)"/>
+          <ellipse cx="300" cy="258" rx="8" ry="6" transform="rotate(-29 300 258)"/>
+          <ellipse cx="382" cy="224" rx="11" ry="7" transform="rotate(15 382 224)"/>
+          <ellipse cx="441" cy="255" rx="9" ry="6" transform="rotate(15 441 255)"/>
+          <ellipse cx="282" cy="337" rx="10" ry="7" transform="rotate(-29 282 337)"/>
+          <ellipse cx="362" cy="290" rx="8" ry="6" transform="rotate(-29 362 290)"/>
+          <ellipse cx="444" cy="277" rx="10" ry="7" transform="rotate(15 444 277)"/>
         </g>
-        <path class="cheese-glint" d="m173 255 192-77q28-11 45 5" fill="none" stroke="#fff0c1" stroke-width="4" stroke-linecap="round" opacity=".55"/>
-      </g>
-      <g fill="#ffd785">
+        <g fill="#f6d985" opacity=".95">
+          <ellipse cx="202" cy="359" rx="12" ry="9" transform="rotate(31 202 359)"/>
+          <ellipse cx="236" cy="379" rx="7" ry="6" transform="rotate(31 236 379)"/>
+          <ellipse cx="194" cy="390" rx="6" ry="5" transform="rotate(31 194 390)"/>
+          <ellipse cx="322" cy="354" rx="11" ry="7" transform="rotate(-29 322 354)"/>
+          <ellipse cx="404" cy="308" rx="8" ry="6" transform="rotate(-29 404 308)"/>
+          <ellipse cx="355" cy="397" rx="7" ry="5" transform="rotate(-29 355 397)"/>
+          <ellipse cx="454" cy="340" rx="10" ry="7" transform="rotate(-29 454 340)"/>
+        </g>
+        <!-- Thin pale rind line catches the warm hero light. -->
+        <path class="cheese-glint" d="m166 310 210-117q24-13 45 1l95 54" fill="none" stroke="#fff0c1" stroke-width="4" stroke-linecap="round" opacity=".65"/>
+        <path d="m154 407 106 59 10-8-120-71z" fill="#572d16" opacity=".62"/>
+      </g>      <g fill="#ffd785">
         <circle cx="122" cy="338" r="3"/><circle cx="457" cy="156" r="2.5"/><circle cx="440" cy="405" r="3"/><circle cx="196" cy="135" r="2"/>
       </g>
     </svg>
@@ -388,7 +412,7 @@
         </div>
         <figure>
           <div class="ph ph--intro" role="img" aria-label="Photo : gros plan sur une planche de service">
-            <svg class="food-art" viewBox="0 0 800 1000" aria-hidden="true"><defs><linearGradient id="board1" x2="0" y2="1"><stop stop-color="#94603a"/><stop offset="1" stop-color="#3f2318"/></linearGradient><radialGradient id="light1"><stop stop-color="#e8a44c" stop-opacity=".5"/><stop offset="1" stop-color="#24120c" stop-opacity="0"/></radialGradient></defs><rect width="800" height="1000" fill="#23140f"/><ellipse cx="430" cy="480" rx="400" ry="520" fill="url(#light1)"/><rect x="92" y="120" width="620" height="760" rx="280" fill="url(#board1)" stroke="#d19a57" stroke-opacity=".65" stroke-width="8"/><ellipse cx="400" cy="500" rx="255" ry="325" fill="#302018" stroke="#e5b46d" stroke-width="5"/><g fill="#c34e39" stroke="#e88669" stroke-width="5"><ellipse cx="300" cy="325" rx="87" ry="52" transform="rotate(-28 300 325)"/><ellipse cx="450" cy="290" rx="91" ry="53" transform="rotate(18 450 290)"/><ellipse cx="520" cy="405" rx="90" ry="54" transform="rotate(-17 520 405)"/><ellipse cx="310" cy="465" rx="92" ry="53" transform="rotate(17 310 465)"/></g><g fill="#f1d287" stroke="#fff0bd" stroke-width="5"><path d="m250 585 150-135 125 150-149 135z"/><path d="m378 725 126-113 88 117-131 103z"/></g><g fill="#683b22"><circle cx="320" cy="325" r="12"/><circle cx="451" cy="288" r="13"/><circle cx="520" cy="405" r="12"/></g><g fill="#708446"><ellipse cx="222" cy="690" rx="36" ry="17" transform="rotate(-25 222 690)"/><ellipse cx="575" cy="540" rx="36" ry="17" transform="rotate(30 575 540)"/><ellipse cx="250" cy="740" rx="34" ry="16"/></g><path d="M152 230 94 190l195 120-12 15z" fill="#c6c5bd"/><path d="m92 188 28-15-15 29z" fill="#f0e8d9"/></svg>
+            <img class="food-art" src="saucissons-planche.jpg" alt="Saucissons artisanaux sur une planche en bois">
           </div>
           <figcaption>Ce qui se partage, se coupe à table.</figcaption>
         </figure>
@@ -400,8 +424,8 @@
     <div class="wrap">
       <div class="grid">
         <figure class="figure-lg">
-          <div class="ph ph--charcut" role="img" aria-label="Photo : plateau de charcuterie garni">
-            <svg class="food-art" viewBox="0 0 1000 1250" aria-hidden="true"><defs><radialGradient id="bg2"><stop stop-color="#bd713d" stop-opacity=".48"/><stop offset="1" stop-color="#1c100b" stop-opacity="0"/></radialGradient><linearGradient id="wood2" x2="0" y2="1"><stop stop-color="#9b6338"/><stop offset="1" stop-color="#442619"/></linearGradient></defs><rect width="1000" height="1250" fill="#21120c"/><ellipse cx="540" cy="520" rx="530" ry="620" fill="url(#bg2)"/><ellipse cx="510" cy="640" rx="402" ry="520" fill="url(#wood2)" stroke="#dcaa69" stroke-width="9"/><ellipse cx="510" cy="635" rx="345" ry="455" fill="#2a1a11" stroke="#f0c78b" stroke-opacity=".65" stroke-width="5"/><g fill="#c54b3c" stroke="#ec9275" stroke-width="5"><path d="M236 390q-25-105 56-122 84-16 102 74l-16 134q-75 22-132-10z"/><path d="M395 350q-3-109 80-112 87 0 84 96l-33 134q-78 12-128-29z"/><path d="M564 367q24-104 107-81 82 24 55 116l-65 119q-79-10-112-70z"/><path d="M270 560q-15-102 68-119 84-14 97 76l-28 131q-79 17-128-24z"/><path d="M510 565q6-102 91-104 87 3 74 96l-50 124q-78 0-115-55z"/></g><g fill="#692d25"><circle cx="300" cy="355" r="11"/><circle cx="443" cy="310" r="12"/><circle cx="623" cy="340" r="13"/></g><g fill="#efd18a" stroke="#fff0be" stroke-width="5"><path d="m356 720 175-140 123 148-174 137z"/><path d="m262 790 92-83 85 102-97 79z"/></g><path d="M545 800q145-68 198 37l-71 80q-83-54-150-9z" fill="#e6d4b5"/><g fill="#71874a"><ellipse cx="300" cy="870" rx="42" ry="19" transform="rotate(-28 300 870)"/><ellipse cx="370" cy="900" rx="43" ry="18"/><ellipse cx="693" cy="700" rx="44" ry="19" transform="rotate(24 693 700)"/></g><circle cx="520" cy="910" r="37" fill="#ad562c"/><circle cx="520" cy="910" r="15" fill="#462719"/></svg>
+          <div class="ph ph--charcut" role="img" aria-label="Planche à partager avec charcuteries, fromages, pâté en croûte, pain et condiments">
+            <img class="food-art" src="plateau-comptoir.jpg" alt="Planche à partager avec jambon sec, saucisson, fromages, pâté en croûte, pain, cornichons, petits oignons et moutarde">
           </div>
           <figcaption style="padding-left: var(--pad)">Le plateau du comptoir, prêt à être posé au centre de la table.</figcaption>
         </figure>
@@ -411,7 +435,7 @@
           <ul class="menu">
             <li>
               <h3>Le plateau du comptoir</h3>
-              <p>Jambon blanc, jambon sec, rosette, pâté de campagne et cornichons.</p>
+              <p>Jambon sec, rosette et saucisson, fromages, pâté en croûte, pain de campagne, cornichons, petits oignons et moutarde : une planche généreuse à partager.</p>
             </li>
             <li>
               <h3>Le plateau de fête</h3>
@@ -429,19 +453,19 @@
       <div class="strip">
         <figure>
           <div class="ph ph--jambon" role="img" aria-label="Photo : jambons tranchés">
-            <svg class="food-art" viewBox="0 0 800 600" aria-hidden="true"><defs><radialGradient id="bg3"><stop stop-color="#b94e3c" stop-opacity=".48"/><stop offset="1" stop-color="#1b0e0b" stop-opacity="0"/></radialGradient><linearGradient id="ham3" x2=".9" y2="1"><stop stop-color="#f0a183"/><stop offset="1" stop-color="#a93731"/></linearGradient></defs><rect width="800" height="600" fill="#25140f"/><rect width="800" height="600" fill="url(#bg3)"/><path d="M150 145q185-115 478 13l54 242q-270 138-553 5z" fill="#57321e" stroke="#b5814d" stroke-width="8"/><g fill="url(#ham3)" stroke="#f3bd9c" stroke-width="4"><ellipse cx="265" cy="260" rx="125" ry="77" transform="rotate(-26 265 260)"/><ellipse cx="403" cy="244" rx="127" ry="78" transform="rotate(13 403 244)"/><ellipse cx="530" cy="296" rx="124" ry="75" transform="rotate(-14 530 296)"/><ellipse cx="347" cy="355" rx="126" ry="77" transform="rotate(-9 347 355)"/></g><g fill="#8d392c"><ellipse cx="265" cy="260" rx="26" ry="17"/><ellipse cx="406" cy="243" rx="25" ry="16"/><ellipse cx="531" cy="295" rx="26" ry="16"/></g><g fill="#ead28e"><circle cx="168" cy="431" r="27"/><circle cx="214" cy="444" r="23"/><circle cx="596" cy="425" r="28"/></g></svg>
+            <img class="food-art" src="jambon-tranche.jpg" alt="Jambon sec entier et tranches fines sur une planche">
           </div>
           <figcaption>Jambons, blanc et sec.</figcaption>
         </figure>
         <figure>
           <div class="ph ph--terrine" role="img" aria-label="Photo : terrine et pâté">
-            <svg class="food-art" viewBox="0 0 800 600" aria-hidden="true"><defs><radialGradient id="bg4"><stop stop-color="#bb8047" stop-opacity=".45"/><stop offset="1" stop-color="#1b100a" stop-opacity="0"/></radialGradient><linearGradient id="terrine4" x2="0" y2="1"><stop stop-color="#b76a3a"/><stop offset="1" stop-color="#57301c"/></linearGradient></defs><rect width="800" height="600" fill="#21140d"/><rect width="800" height="600" fill="url(#bg4)"/><ellipse cx="405" cy="365" rx="275" ry="145" fill="#4a2d1c" stroke="#d5a76c" stroke-width="8"/><path d="M242 215h324l-25 155q-7 42-42 46H310q-38-4-43-46z" fill="url(#terrine4)" stroke="#e2bb80" stroke-width="7"/><path d="M225 218q145-78 354 0l-19 50q-156-62-319 0z" fill="#c68a4d" stroke="#f0cc8f" stroke-width="6"/><path d="M276 278q118-45 256 0l-13 98q-105 35-229 0z" fill="#b34b38"/><g fill="#eee1c5"><circle cx="329" cy="319" r="13"/><circle cx="400" cy="345" r="16"/><circle cx="475" cy="308" r="12"/><circle cx="447" cy="367" r="10"/></g><path d="M282 473h240" stroke="#e2b978" stroke-width="5" stroke-linecap="round"/></svg>
+            <img class="food-art" src="terrine.jpg" alt="Terrine maison en bocal avec cornichons">
           </div>
           <figcaption>Terrines et pâtés de campagne.</figcaption>
         </figure>
         <figure>
           <div class="ph ph--sec" role="img" aria-label="Photo : saucissons secs">
-            <svg class="food-art" viewBox="0 0 800 600" aria-hidden="true"><defs><radialGradient id="bg5"><stop stop-color="#923e2b" stop-opacity=".48"/><stop offset="1" stop-color="#170c08" stop-opacity="0"/></radialGradient><linearGradient id="salami5" x2="0" y2="1"><stop stop-color="#b45b3d"/><stop offset=".5" stop-color="#823525"/><stop offset="1" stop-color="#4e2119"/></linearGradient></defs><rect width="800" height="600" fill="#1c100b"/><rect width="800" height="600" fill="url(#bg5)"/><path d="M110 444 505 152q28-20 55 14l17 21-409 300q-28 20-50-14z" fill="url(#salami5)" stroke="#d08a60" stroke-width="6"/><path d="m154 457 414-286q25-18 47 12l13 18-423 295q-28 18-48-15z" fill="#873a2a" stroke="#e09b6d" stroke-width="5"/><g fill="#eed3a0"><circle cx="212" cy="391" r="5"/><circle cx="288" cy="337" r="6"/><circle cx="372" cy="277" r="5"/><circle cx="463" cy="217" r="6"/><circle cx="249" cy="432" r="5"/><circle cx="347" cy="366" r="6"/><circle cx="447" cy="295" r="5"/></g><ellipse cx="570" cy="172" rx="39" ry="28" transform="rotate(48 570 172)" fill="#f0d5a7" stroke="#bd7654" stroke-width="6"/><ellipse cx="613" cy="214" rx="40" ry="28" transform="rotate(48 613 214)" fill="#f0d5a7" stroke="#bd7654" stroke-width="6"/><ellipse cx="654" cy="255" rx="39" ry="28" transform="rotate(48 654 255)" fill="#f0d5a7" stroke="#bd7654" stroke-width="6"/><g fill="#77904f"><ellipse cx="173" cy="190" rx="48" ry="17" transform="rotate(-35 173 190)"/><ellipse cx="215" cy="207" rx="49" ry="16" transform="rotate(23 215 207)"/></g></svg>
+            <img class="food-art" src="saucisson-tranche.jpg" alt="Saucisson sec tranché sur une planche">
           </div>
           <figcaption>Saucissons secs, à couper épais.</figcaption>
         </figure>
@@ -477,13 +501,13 @@
         <div class="duo">
           <figure>
             <div class="ph ph--cheese" role="img" aria-label="Photo : plateau de fromages affinés">
-              <svg class="food-art" viewBox="0 0 800 1100" aria-hidden="true"><defs><radialGradient id="bg6"><stop stop-color="#d39a49" stop-opacity=".48"/><stop offset="1" stop-color="#21130b" stop-opacity="0"/></radialGradient><linearGradient id="rind6" x2="0" y2="1"><stop stop-color="#e1b777"/><stop offset="1" stop-color="#774522"/></linearGradient></defs><rect width="800" height="1100" fill="#21140d"/><ellipse cx="400" cy="500" rx="410" ry="500" fill="url(#bg6)"/><ellipse cx="400" cy="565" rx="310" ry="420" fill="#73472b" stroke="#d4a367" stroke-width="10"/><ellipse cx="400" cy="560" rx="258" ry="355" fill="#302016" stroke="#f0cb8a" stroke-width="5"/><path d="M226 327q94-72 192-6l-15 196q-89 49-185-8z" fill="#f4d688" stroke="#fff0b0" stroke-width="7"/><path d="M415 302q111-43 166 39l-33 174q-106 35-170-31z" fill="#d6a44c" stroke="#f3d385" stroke-width="8"/><g fill="#715429"><circle cx="276" cy="380" r="9"/><circle cx="348" cy="443" r="11"/><circle cx="467" cy="365" r="9"/></g><path d="M244 630q23-113 121-109t116 107q-15 116-127 116-98-5-110-114" fill="#eee0bf" stroke="#fff4d8" stroke-width="7"/><path d="M244 630q23-113 121-109t116 107q-15 116-127 116-98-5-110-114" fill="none" stroke="#b89865" stroke-width="18"/><path d="m411 692 132-130 84 143-148 111z" fill="#e5b84f" stroke="#f4d777" stroke-width="7"/><path d="m416 695 116-114 56 117-105 93z" fill="#72915c" opacity=".75"/><g fill="#a84435"><circle cx="297" cy="825" r="47"/><circle cx="392" cy="844" r="42"/></g><g fill="#f1d28c"><ellipse cx="517" cy="817" rx="48" ry="20" transform="rotate(-26 517 817)"/><ellipse cx="570" cy="784" rx="46" ry="19" transform="rotate(-26 570 784)"/></g></svg>
+              <img class="food-art" src="fromages-plateau.jpg" alt="Sélection de fromages français sur une planche">
             </div>
             <figcaption>Un plateau pour finir le repas.</figcaption>
           </figure>
           <figure>
             <div class="ph ph--cheese-small" role="img" aria-label="Photo : détail d'un fromage à la coupe">
-              <svg class="food-art" viewBox="0 0 600 1000" aria-hidden="true"><defs><radialGradient id="bg7"><stop stop-color="#d5ae68" stop-opacity=".5"/><stop offset="1" stop-color="#21150d" stop-opacity="0"/></radialGradient></defs><rect width="600" height="1000" fill="#21150d"/><rect width="600" height="1000" fill="url(#bg7)"/><circle cx="303" cy="486" r="222" fill="#e2c784" stroke="#f9e5ad" stroke-width="14"/><circle cx="303" cy="486" r="183" fill="#f4e6c5" stroke="#a98b57" stroke-width="12"/><circle cx="303" cy="486" r="147" fill="#eee0ba"/><g fill="#8a7651" opacity=".72"><circle cx="242" cy="418" r="9"/><circle cx="350" cy="455" r="11"/><circle cx="279" cy="527" r="8"/><circle cx="379" cy="558" r="7"/><circle cx="224" cy="565" r="6"/><circle cx="326" cy="374" r="7"/></g><path d="M95 771 501 295" stroke="#c8c4b9" stroke-width="24" stroke-linecap="round"/><path d="m498 290 28-33-4 46z" fill="#f4eee0"/><path d="M133 790 505 357" stroke="#fff4d1" stroke-opacity=".3" stroke-width="6"/></svg>
+              <img class="food-art" src="fromages-selection.jpg" alt="Assortiment de fromages affinés sur une planche">
             </div>
             <figcaption>La coupe, à la demande.</figcaption>
           </figure>
@@ -494,7 +518,7 @@
 
   <section class="band" aria-label="Photo d'ambiance">
     <div class="ph ph--band" role="img" aria-label="Photo pleine largeur : table dressée avec charcuterie, fromages et pain">
-      <svg class="food-art" viewBox="0 0 1600 900" aria-hidden="true"><defs><radialGradient id="bg8"><stop stop-color="#a95830" stop-opacity=".45"/><stop offset="1" stop-color="#160c08" stop-opacity="0"/></radialGradient><linearGradient id="table8" x2="0" y2="1"><stop stop-color="#724628"/><stop offset="1" stop-color="#2d190f"/></linearGradient></defs><rect width="1600" height="900" fill="#160d09"/><ellipse cx="940" cy="400" rx="850" ry="580" fill="url(#bg8)"/><path d="M0 635q800-180 1600 0v265H0z" fill="url(#table8)"/><ellipse cx="1050" cy="490" rx="370" ry="205" fill="#50301c" stroke="#cb9b61" stroke-width="10"/><ellipse cx="1050" cy="475" rx="315" ry="159" fill="#291a12" stroke="#ecd09c" stroke-width="5"/><g fill="#c5503f" stroke="#e99576" stroke-width="6"><ellipse cx="877" cy="431" rx="108" ry="57" transform="rotate(-24 877 431)"/><ellipse cx="1044" cy="389" rx="108" ry="55" transform="rotate(16 1044 389)"/><ellipse cx="1194" cy="447" rx="105" ry="56" transform="rotate(-10 1194 447)"/></g><g fill="#efd58b" stroke="#fff0bf" stroke-width="6"><path d="m924 533 102-112 106 106-112 101z"/><path d="m1088 547 88-83 79 95-92 79z"/></g><path d="M274 415q95-76 206-11l-18 132q-98 44-184-8z" fill="#f1d78c" stroke="#fff0bc" stroke-width="7"/><path d="M305 574q121-41 212 27l-40 94q-100 22-177-30z" fill="#eee2c9" stroke="#fff3d7" stroke-width="7"/><path d="M440 689q146-22 205 79" fill="none" stroke="#bf7748" stroke-width="30" stroke-linecap="round"/><g fill="#77894c"><ellipse cx="1282" cy="581" rx="56" ry="23" transform="rotate(-30 1282 581)"/><ellipse cx="1357" cy="565" rx="54" ry="22" transform="rotate(24 1357 565)"/><ellipse cx="783" cy="599" rx="50" ry="21"/></g></svg>
+      <img class="food-art" src="charcuterie-saucissons.jpg" alt="Assortiment de saucissons français sur une planche">
     </div>
     <div class="band-shade"></div>
     <div class="wrap">
@@ -641,6 +665,7 @@
   })();
 
   var w = 0, h = 0, dpr = 1, parts = [];
+  var frameInterval = 1000 / 30, lastFrame = 0;
 
   function rand(a, b) { return a + Math.random() * (b - a); }
 
@@ -667,7 +692,7 @@
 
   function resize() {
     var rect = host.getBoundingClientRect();
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     var nw = Math.max(2, Math.round(rect.width * dpr));
     var nh = Math.max(2, Math.round(rect.height * dpr));
     if (nw === w && nh === h) return;
@@ -756,9 +781,11 @@
   function tick(now) {
     if (!running) return;
     raf = requestAnimationFrame(tick);
-    if (!visible) { last = now; return; }
+    if (!visible) { last = now; lastFrame = now; return; }
+    if (now - lastFrame < frameInterval) return;
     var dt = last ? Math.min(0.05, (now - last) / 1000) : 0;
     last = now;
+    lastFrame = now;
     clock += dt;
     var k = 1 - Math.exp(-dt * 1.2);        // le pointeur est suivi avec beaucoup d'inertie
     ptrSm[0] += (ptr[0] - ptrSm[0]) * k;
@@ -778,6 +805,17 @@
 </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
 
 
 
