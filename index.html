@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#17110E">
-<meta name="description" content="Bon Appetit, charcuterie et fromagerie françaises au 18 rue Pocquet de Livonnières à Angers. Plateaux de charcuterie, fromages, horaires et accès.">
-<title>Bon Appetit, charcuterie et fromagerie à Angers</title>
+<meta name="description" content="Bon Appetit à Angers : rôtisserie, pintade rôtie sur commande, charcuterie, fromages et plateaux à partager.">
+<title>Bon Appetit, rôtisserie, charcuterie et fromagerie à Angers</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
@@ -208,7 +208,7 @@
   .cheese-card[data-offset="0"] { left:16%; top:0; width:68%; height:100%; z-index:2; opacity:1; filter:none; cursor:default; }
   .cheese-card[data-offset="-1"] { left:0; top:8%; width:30%; height:84%; z-index:1; opacity:.9; filter:brightness(.72); }
   .cheese-card[data-offset="1"] { left:70%; top:8%; width:30%; height:84%; z-index:1; opacity:.9; filter:brightness(.72); }
-  .cheese-card[data-offset="2"] { left:50%; top:18%; width:18%; height:64%; z-index:0; opacity:0; pointer-events:none; }
+  .cheese-card[data-offset="2"],.cheese-card[data-offset="-2"] { left:50%; top:18%; width:18%; height:64%; z-index:0; opacity:0; pointer-events:none; }
   .cheese-card[data-offset="0"]::after { opacity:1; }
   .cheese-card[data-offset="0"] img { transform:scale(1.015); }
   .cheese-card:hover img { transform:scale(1.04); }
@@ -254,6 +254,11 @@
   .section-text > p { color: var(--muted); max-width: 32rem; }
   .figure-lg { margin: 0; }
   .figure-lg .ph { aspect-ratio: 4 / 5; }
+  .rotisserie .section-text { grid-column:1 / 6; align-self:center; }
+  .rotisserie .figure-lg { grid-column:7 / 13; }
+  .rotisserie .figure-lg .ph { aspect-ratio:4 / 3; }
+  .rotisserie-title { display:flex; align-items:center; gap:1rem; }
+  .rotisserie-icon { display:block; flex:none; width:clamp(4.5rem,8vw,7rem); height:auto; color:var(--ember); }
 
   .menu { list-style: none; margin: .6rem 0 0; padding: 0; }
   .menu li { padding-block: 1.15rem; border-top: 1px solid var(--line); }
@@ -347,14 +352,15 @@
     .charcut .figure-lg { grid-column: 1 / 8; margin-left: calc(var(--pad) * -1); }
     .charcut .section-text { grid-column: 9 / 13; }
 
-    .strip { grid-template-columns: repeat(4, 1fr); align-items: start; }
-    .strip figure:nth-child(4) { margin-top: 3rem; }
+    .strip { grid-template-columns: repeat(3, 1fr); align-items: start; }
     .strip figure:nth-child(2) { margin-top: 4.5rem; }
     .strip figure:nth-child(2) .ph { aspect-ratio: 3 / 4; }
     .strip figure:nth-child(3) { margin-top: 1.5rem; }
 
     .cheese .section-text { grid-column: 1 / 6; order: 1; }
     .cheese .cheese-carousel { grid-column: 7 / 13; order: 2; margin-right: calc(var(--pad) * -1); }
+    .rotisserie .section-text { grid-column:1 / 6; }
+    .rotisserie .figure-lg { grid-column:7 / 13; }
 
     .families div { grid-template-columns: 9.5rem 1fr; align-items: baseline; gap: 1.5rem; }
 
@@ -370,6 +376,9 @@
   @media (max-width: 899px) {
     .charcut .figure-lg { margin-left: calc(var(--pad) * -1); margin-right: calc(var(--pad) * -1); }
     .cheese .cheese-carousel { margin-right: calc(var(--pad) * -1); }
+    .rotisserie .section-text,.rotisserie .figure-lg { grid-column:auto; }
+    .rotisserie .figure-lg { margin-inline:calc(var(--pad) * -1); }
+    .rotisserie-title { justify-content:space-between; }
     .cheese .section-text { order: 1; }
     .cheese .cheese-carousel { order: 2; }
   }
@@ -395,6 +404,7 @@
     <a class="wordmark" href="#accueil">Bon Appetit</a>
     <nav aria-label="Navigation principale">
       <a href="#plateaux">Charcuterie</a>
+      <a href="#rotisserie">Rôtisserie</a>
       <a href="#fromages">Fromagerie</a>
       <a href="#horaires">Horaires</a>
     </nav>
@@ -446,7 +456,7 @@
           <ul class="menu">
             <li>
               <h3>Le plateau du comptoir</h3>
-              <p>Jambon sec, rosette et saucisson, fromages, pâté en croûte, pain de campagne, cornichons, petits oignons et moutarde : une planche généreuse à partager.</p>
+              <p>Jambon de montagne italien, chorizo doux, rosette, rillaud maison, Fourme d’Ambert, Cantal et Tomme de Sancy : une planche généreuse à partager.</p>
             </li>
             <li>
               <h3>Le plateau de fête</h3>
@@ -480,11 +490,36 @@
           </div>
           <figcaption>Saucissons secs, à couper épais.</figcaption>
         </figure>
-        <figure>
-          <div class="ph ph--rotisserie" role="img" aria-label="Photo : poulet rôti et pommes de terre">
-            <img class="food-art" src="poulet-roti.jpg" alt="Poulet rôti doré, accompagné de pommes de terre">
+      </div>
+    </div>
+  </section>
+
+  <section class="section rotisserie" id="rotisserie" aria-labelledby="t-rotisserie">
+    <div class="wrap">
+      <div class="grid">
+        <div class="section-text">
+          <div class="rotisserie-title">
+            <h2 id="t-rotisserie">La rôtisserie</h2>
+            <svg class="rotisserie-icon" viewBox="0 0 132 88" fill="none" aria-hidden="true">
+              <path d="M7 47h118M13 39v16m106-16v16" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M43 43c-8-9-7-18 1-24 8-7 20-3 24 4 8-8 23-7 29 2 11 1 17 10 13 19-4 11-17 16-30 11-9 9-23 8-30-1-8 0-13-5-12-11 0-4 2-7 5-9Z" fill="currentColor" fill-opacity=".18" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+              <path d="M91 25c3-8 12-10 17-4l-1 8 9 4-10 4m-36 4c-5 5-6 11-2 17m12-18c-3 5-2 11 3 15M50 57l-7 9m40-8 8 8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="m26 22 2 5 5 2-5 2-2 5-2-5-5-2 5-2 2-5Zm79 37 1.5 3.5L110 64l-3.5 1.5L105 69l-1.5-3.5L100 64l3.5-1.5L105 59Z" fill="currentColor"/>
+            </svg>
           </div>
-          <figcaption>La rôtisserie et ses pommes de terre.</figcaption>
+          <p>Pour vos repas à partager, découvrez aussi la pintade rôtie, disponible sur commande.</p>
+          <ul class="menu">
+            <li>
+              <h3>Pintade rôtie</h3>
+              <p>Sur commande.</p>
+            </li>
+          </ul>
+        </div>
+        <figure class="figure-lg">
+          <div class="ph ph--rotisserie" role="img" aria-label="Poulet rôti avec ses pommes de terre">
+            <img class="food-art" src="pictures_ba84748c-faa7-4165-abfd-c71251811a11_-Ot9y46ojEsQ3CCeLmV6.jpg" alt="Poulet rôti doré sur une planche, accompagné d'une cocotte de pommes de terre rôties">
+          </div>
+          <figcaption>Poulet rôti et pommes de terre ; pintade sur commande.</figcaption>
         </figure>
       </div>
     </div>
@@ -517,10 +552,11 @@
         </div>
         <div class="cheese-carousel" data-cheese-carousel role="region" aria-roledescription="carrousel" aria-label="Photos de fromages">
           <div class="cheese-carousel-stage" data-cheese-stage tabindex="0" aria-live="polite">
-            <button class="cheese-card" type="button" data-cheese-card data-index="0" aria-pressed="true" aria-label="Afficher la sélection de fromages"><img src="fromages-plateau.jpg" alt="Assortiment de fromages français sur une planche"><span class="cheese-card-label">Un plateau pour finir le repas</span></button>
-            <button class="cheese-card" type="button" data-cheese-card data-index="1" aria-pressed="false" aria-label="Afficher les fromages à la coupe"><img src="fromages-selection.jpg" alt="Fromages affinés présentés à la coupe"><span class="cheese-card-label">La coupe, à la demande</span></button>
-            <button class="cheese-card" type="button" data-cheese-card data-index="2" aria-pressed="false" aria-label="Afficher les fromages de différentes familles"><img src="assortiment-fromages.jpg" alt="Sélection variée de fromages français"><span class="cheese-card-label">Des fromages de caractère</span></button>
-            <button class="cheese-card" type="button" data-cheese-card data-index="3" aria-pressed="false" aria-label="Afficher le Brie de Melun"><img src="brie-de-melun.jpg" alt="Brie de Melun entier dans sa boîte en bois"><span class="cheese-card-label">Brie de Melun</span></button>
+            <button class="cheese-card" type="button" data-cheese-card data-index="0" aria-pressed="true" aria-label="Afficher le Brie de Melun"><img src="brie-de-melun.jpg" alt="Brie de Melun entier dans sa boîte en bois"><span class="cheese-card-label">Brie de Melun</span></button>
+            <button class="cheese-card" type="button" data-cheese-card data-index="1" aria-pressed="false" aria-label="Afficher le fromage à pâte molle"><img src="fromage-pate-molle.jpg" alt="Fromage à pâte molle présenté entier et en morceaux"><span class="cheese-card-label">Fromage à pâte molle</span></button>
+            <button class="cheese-card" type="button" data-cheese-card data-index="2" aria-pressed="false" aria-label="Afficher le fromage bleu persillé"><img src="bleu-persille.jpg" alt="Morceau de fromage bleu persillé"><span class="cheese-card-label">Un bleu persillé</span></button>
+            <button class="cheese-card" type="button" data-cheese-card data-index="3" aria-pressed="false" aria-label="Afficher le fromage de chèvre"><img src="fromage-chevre.jpg" alt="Fromage de chèvre posé sur une ardoise"><span class="cheese-card-label">Fromage de chèvre</span></button>
+            <button class="cheese-card" type="button" data-cheese-card data-index="4" aria-pressed="false" aria-label="Afficher le fromage à croûte fleurie"><img src="fromage-croute-fleurie.jpg" alt="Fromage à croûte fleurie sur une planche rustique"><span class="cheese-card-label">Fromage à croûte fleurie</span></button>
           </div>
           <div class="cheese-carousel-footer">
             <div class="cheese-progress-tabs" role="tablist" aria-label="Choisir une photo">
@@ -528,6 +564,7 @@
               <button class="cheese-progress-tab" type="button" data-cheese-tab="1" role="tab" aria-label="Photo 2" aria-selected="false"><span></span></button>
               <button class="cheese-progress-tab" type="button" data-cheese-tab="2" role="tab" aria-label="Photo 3" aria-selected="false"><span></span></button>
               <button class="cheese-progress-tab" type="button" data-cheese-tab="3" role="tab" aria-label="Photo 4" aria-selected="false"><span></span></button>
+              <button class="cheese-progress-tab" type="button" data-cheese-tab="4" role="tab" aria-label="Photo 5" aria-selected="false"><span></span></button>
             </div>
             <button class="cheese-carousel-arrow" type="button" data-cheese-prev aria-label="Photo précédente"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M9.8 2.6 4.4 8l5.4 5.4 1.2-1.2L6.8 8l4.2-4.2z"/></svg></button>
             <button class="cheese-carousel-arrow" type="button" data-cheese-next aria-label="Photo suivante"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="m6.2 2.6 5.4 5.4-5.4 5.4L5 12.2 9.2 8 5 3.8z"/></svg></button>
