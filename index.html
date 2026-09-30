@@ -184,34 +184,49 @@
     .hero-side > p:first-child { animation: hero-enter .82s cubic-bezier(.25, 1, .5, 1) .56s both; }
     .hero-side > .btn { animation: hero-enter .78s cubic-bezier(.25, 1, .5, 1) .74s both; }
     .hero-side > .status { animation: hero-enter .72s cubic-bezier(.25, 1, .5, 1) .92s both; }
-    .hero-cheese { animation: cheese-enter .9s cubic-bezier(.16, 1, .3, 1) .16s both, cheese-drift 10s cubic-bezier(.37, 0, .63, 1) 1s infinite; }
     @keyframes hero-enter { from { opacity: 0; transform: translate3d(0, 1.15rem, 0); } to { opacity: 1; transform: translate3d(0, 0, 0); } }
-    @keyframes cheese-enter { from { opacity: 0; scale: .94; } to { opacity: 1; scale: 1; } }
   }
 
-  /* Fromage flottant : clin d'œil cinématographique à Ancient Oath. */
-  .hero-cheese {
-    position: absolute; z-index: 1; right: clamp(1rem, 8vw, 8rem); top: 50%;
-    width: clamp(16rem, 38vw, 36rem); aspect-ratio: 1; transform: translateY(-48%);
-    pointer-events: none; filter: drop-shadow(0 2rem 3rem rgba(0,0,0,.55));
-    translate: 0 0; animation: cheese-drift 10s cubic-bezier(.37, 0, .63, 1) infinite;
-  }
-  .hero-cheese svg { display: block; width: 100%; height: 100%; overflow: visible; }
-  .cheese-aura { opacity: .82; animation: aura-breathe 16s ease-in-out infinite alternate; }
-  .cheese-wheel { transform-origin: 50% 50%; animation: wheel-turn 18s cubic-bezier(.45, .05, .55, .95) infinite; }
-  .cheese-glint { animation: glint 6s ease-in-out infinite alternate; }
-  @keyframes cheese-drift { 0%,100% { translate: 0 0; } 50% { translate: 0 -.55rem; } }
-  @keyframes aura-breathe { from { opacity: .55; } to { opacity: .95; } }
-  @keyframes wheel-turn { 0%,100% { transform: rotate(-1.5deg) translateY(0); } 50% { transform: rotate(1.5deg) translateY(-.12rem); } }
-  @keyframes glint { from { opacity: .25; } to { opacity: .8; } }
-  @media (max-width: 899px) {
-    .hero-cheese { width: clamp(13rem, 57vw, 22rem); right: -1.5rem; top: 40%; opacity: .78; }
-    .hero-shade { background: linear-gradient(to top, rgba(23,17,14,.97) 0%, rgba(23,17,14,.72) 42%, rgba(23,17,14,.08) 100%); }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .hero-cheese, .cheese-aura, .cheese-wheel, .cheese-glint { animation: none !important; }
-  }
-  /* ---------- Introduction ---------- */
+  /* Fromage flottant : animation d'accueil d'origine. */
+  .hero-cheese { position:absolute; z-index:1; right:clamp(1rem,8vw,8rem); top:50%; width:clamp(16rem,38vw,36rem); aspect-ratio:1; transform:translateY(-48%); pointer-events:none; filter:drop-shadow(0 2rem 3rem rgba(0,0,0,.55)); translate:0 0; animation:cheese-drift 10s cubic-bezier(.37,0,.63,1) infinite; }
+  .hero-cheese svg { display:block; width:100%; height:100%; overflow:visible; }
+  .cheese-aura { opacity:.82; animation:aura-breathe 16s ease-in-out infinite alternate; }
+  .cheese-wheel { transform-origin:50% 50%; animation:wheel-turn 18s cubic-bezier(.45,.05,.55,.95) infinite; }
+  .cheese-glint { animation:glint 6s ease-in-out infinite alternate; }
+  @keyframes cheese-drift { 0%,100% { translate:0 0; } 50% { translate:0 -.55rem; } }
+  @keyframes aura-breathe { from { opacity:.55; } to { opacity:.95; } }
+  @keyframes wheel-turn { 0%,100% { transform:rotate(-1.5deg) translateY(0); } 50% { transform:rotate(1.5deg) translateY(-.12rem); } }
+  @keyframes glint { from { opacity:.25; } to { opacity:.8; } }
+  @media (prefers-reduced-motion:no-preference) { .hero-cheese { animation:cheese-enter .9s cubic-bezier(.16,1,.3,1) .16s both,cheese-drift 10s cubic-bezier(.37,0,.63,1) 1s infinite; } @keyframes cheese-enter { from { opacity:0; scale:.94; } to { opacity:1; scale:1; } } }
+  /* Carrousel de fromages : un grand visuel central et des aperçus latéraux. */
+  .cheese-carousel { position:relative; min-width:0; user-select:none; }
+  .cheese-carousel-stage { position:relative; height:clamp(21rem,44vw,35rem); overflow:hidden; outline:none; }
+  .cheese-card { position:absolute; display:block; overflow:hidden; padding:0; border:0; border-radius:3px; color:var(--paper); background:#2b211b; text-align:left; cursor:pointer; transform:translateZ(0); box-shadow:0 1rem 2.5rem rgba(0,0,0,.25); transition:left 850ms cubic-bezier(.22,1,.36,1),top 850ms cubic-bezier(.22,1,.36,1),width 850ms cubic-bezier(.22,1,.36,1),height 850ms cubic-bezier(.22,1,.36,1),opacity 500ms ease,filter 600ms ease; }
+  .cheese-card img { position:absolute; inset:0; display:block; width:100%; height:100%; object-fit:cover; pointer-events:none; transition:transform 1.1s cubic-bezier(.22,1,.36,1); }
+  .cheese-card::after { content:""; position:absolute; inset:30% 0 0; background:linear-gradient(transparent,rgba(17,10,6,.72)); opacity:0; transition:opacity 450ms ease; pointer-events:none; }
+  .cheese-card[data-offset="0"] { left:16%; top:0; width:68%; height:100%; z-index:2; opacity:1; filter:none; cursor:default; }
+  .cheese-card[data-offset="-1"] { left:0; top:8%; width:30%; height:84%; z-index:1; opacity:.9; filter:brightness(.72); }
+  .cheese-card[data-offset="1"] { left:70%; top:8%; width:30%; height:84%; z-index:1; opacity:.9; filter:brightness(.72); }
+  .cheese-card[data-offset="0"]::after { opacity:1; }
+  .cheese-card[data-offset="0"] img { transform:scale(1.015); }
+  .cheese-card:hover img { transform:scale(1.04); }
+  .cheese-card:focus-visible { outline:2px solid var(--ember); outline-offset:-4px; }
+  .cheese-card-label { position:absolute; z-index:1; left:1.1rem; right:1rem; bottom:1rem; opacity:0; transform:translateY(.5rem); font-family:var(--serif); font-size:clamp(1.2rem,2vw,1.8rem); line-height:1.1; transition:opacity 350ms ease,transform 500ms cubic-bezier(.22,1,.36,1); }
+  .cheese-card[data-offset="0"] .cheese-card-label { opacity:1; transform:translateY(0); transition-delay:160ms; }
+  .cheese-carousel-footer { display:flex; align-items:center; gap:.7rem; padding-top:.9rem; }
+  .cheese-progress-tabs { display:flex; align-items:center; gap:.35rem; flex:1; }
+  .cheese-progress-tab { width:1.25rem; height:.25rem; overflow:hidden; padding:0; border:0; border-radius:3px; background:var(--line); cursor:pointer; }
+  .cheese-progress-tab[aria-selected="true"] { width:min(5rem,20vw); }
+  .cheese-progress-tab span { display:block; width:100%; height:100%; background:var(--ember); transform:scaleX(0); transform-origin:left center; }
+  .cheese-progress-tab[aria-selected="true"] span { animation:cheese-progress 6s linear forwards; }
+  @keyframes cheese-progress { to { transform:scaleX(1); } }
+  .cheese-carousel-arrow { display:grid; place-items:center; flex:0 0 auto; width:2.5rem; height:2.5rem; border:1px solid var(--line); border-radius:50%; color:var(--paper); background:transparent; cursor:pointer; transition:background .2s ease,border-color .2s ease; }
+  .cheese-carousel-arrow:hover { border-color:var(--ember); background:rgba(232,133,58,.16); }
+  .cheese-carousel-arrow:focus-visible,.cheese-progress-tab:focus-visible { outline:2px solid var(--ember); outline-offset:3px; }
+  .cheese-carousel-arrow svg { width:1rem; height:1rem; }
+  @media (max-width:899px) { .hero-cheese { width:clamp(13rem,57vw,22rem); right:-1.5rem; top:40%; opacity:.78; } .hero-shade { background:linear-gradient(to top,rgba(23,17,14,.97) 0%,rgba(23,17,14,.72) 42%,rgba(23,17,14,.08) 100%); } .cheese-carousel-stage { height:clamp(19rem,62vw,29rem); } .cheese-card[data-offset="0"] { left:15%; width:70%; } .cheese-card[data-offset="-1"] { width:30%; } .cheese-card[data-offset="1"] { left:70%; width:30%; } }
+  @media (max-width:520px) { .cheese-carousel-stage { height:clamp(17rem,76vw,23rem); } .cheese-card[data-offset="0"] { left:14%; width:72%; } .cheese-card[data-offset="-1"] { width:30%; } .cheese-card[data-offset="1"] { left:70%; width:30%; } .cheese-card-label { left:.75rem; bottom:.75rem; font-size:1.15rem; } }
+  @media (prefers-reduced-motion:reduce) { .cheese-card,.cheese-card img,.cheese-card-label { transition:none!important; } .cheese-progress-tab[aria-selected="true"] span { animation:none; transform:scaleX(1); } }  /* ---------- Introduction ---------- */
   .intro { padding-block: clamp(5rem, 12vw, 10rem); }
   .lead { font-family: var(--serif); font-size: clamp(1.6rem, 2.9vw, 2.5rem); line-height: 1.3; font-weight: 300; }
   .lead::first-letter {
@@ -304,7 +319,7 @@
     .strip figure:nth-child(3) { margin-top: 1.5rem; }
 
     .cheese .section-text { grid-column: 1 / 6; order: 1; }
-    .cheese .duo { grid-column: 7 / 13; order: 2; margin-right: calc(var(--pad) * -1); }
+    .cheese .cheese-carousel { grid-column: 7 / 13; order: 2; margin-right: calc(var(--pad) * -1); }
 
     .families div { grid-template-columns: 9.5rem 1fr; align-items: baseline; gap: 1.5rem; }
 
@@ -319,9 +334,9 @@
   }
   @media (max-width: 899px) {
     .charcut .figure-lg { margin-left: calc(var(--pad) * -1); margin-right: calc(var(--pad) * -1); }
-    .cheese .duo { margin-right: calc(var(--pad) * -1); }
+    .cheese .cheese-carousel { margin-right: calc(var(--pad) * -1); }
     .cheese .section-text { order: 1; }
-    .cheese .duo { order: 2; }
+    .cheese .cheese-carousel { order: 2; }
   }
 </style>
 </head>
@@ -331,54 +346,15 @@
   <div class="ph ph--hero" id="hero-gl" aria-hidden="true"></div>
   <div class="hero-cheese" aria-hidden="true">
     <svg viewBox="0 0 600 600" role="presentation">
-      <defs>
-        <radialGradient id="cheeseGlow"><stop stop-color="#f6c86b" stop-opacity=".42"/><stop offset="1" stop-color="#f6c86b" stop-opacity="0"/></radialGradient>
-        <linearGradient id="wheelTop" x1=".15" y1=".1" x2=".85" y2=".9"><stop stop-color="#ffe5a0"/><stop offset=".48" stop-color="#e9ad4f"/><stop offset="1" stop-color="#a95c22"/></linearGradient>
-        <linearGradient id="wheelSide" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#b96b2e"/><stop offset="1" stop-color="#552912"/></linearGradient>
-        <filter id="softGlow"><feGaussianBlur stdDeviation="7"/></filter>
-      </defs>
+      <defs><radialGradient id="cheeseGlow"><stop stop-color="#f6c86b" stop-opacity=".42"/><stop offset="1" stop-color="#f6c86b" stop-opacity="0"/></radialGradient><linearGradient id="wheelTop" x1=".15" y1=".1" x2=".85" y2=".9"><stop stop-color="#ffe5a0"/><stop offset=".48" stop-color="#e9ad4f"/><stop offset="1" stop-color="#a95c22"/></linearGradient><linearGradient id="wheelSide" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#b96b2e"/><stop offset="1" stop-color="#552912"/></linearGradient><filter id="softGlow"><feGaussianBlur stdDeviation="7"/></filter></defs>
       <circle cx="304" cy="292" r="245" fill="url(#cheeseGlow)"/>
-      <g class="cheese-aura" fill="none" stroke="#edbd69" stroke-opacity=".32">
-        <ellipse cx="300" cy="300" rx="220" ry="92" transform="rotate(-24 300 300)" stroke-width="1.2"/>
-        <ellipse cx="300" cy="300" rx="242" ry="112" transform="rotate(31 300 300)" stroke-width=".8" stroke-dasharray="2 12"/>
-        <circle cx="300" cy="300" r="226" stroke-dasharray="1 18" stroke-width="2"/>
-      </g>
-      <g class="cheese-wheel">
-        <ellipse cx="304" cy="402" rx="180" ry="43" fill="#050302" opacity=".58" filter="url(#softGlow)"/>
-        <!-- Large wedge with a browned natural rind and a clearly visible cut face. -->
-        <path d="m145 315 233-130q25-14 52 1l112 64v79L265 470l-120-67z" fill="url(#wheelSide)" stroke="#623315" stroke-width="5" stroke-linejoin="round"/>
-        <path d="m145 315 120 71v84l-120-67z" fill="#9a5425" stroke="#e4aa58" stroke-width="3"/>
-        <path d="m265 386 277-157v79L265 470z" fill="#b86b2c" stroke="#e4aa58" stroke-width="3"/>
-        <path d="m145 315 233-130q25-14 52 1l112 64-277 157z" fill="url(#wheelTop)" stroke="#ffdfa0" stroke-width="4" stroke-linejoin="round"/>
-        <!-- Golden cut surface and round eyes make the wedge read as aged cheese. -->
-        <path d="m159 318 222-123q22-12 43 0l100 57-259 146z" fill="#f4cc70" opacity=".46"/>
-        <g fill="#9b5b25" opacity=".88">
-          <ellipse cx="219" cy="303" rx="11" ry="7" transform="rotate(-29 219 303)"/>
-          <ellipse cx="300" cy="258" rx="8" ry="6" transform="rotate(-29 300 258)"/>
-          <ellipse cx="382" cy="224" rx="11" ry="7" transform="rotate(15 382 224)"/>
-          <ellipse cx="441" cy="255" rx="9" ry="6" transform="rotate(15 441 255)"/>
-          <ellipse cx="282" cy="337" rx="10" ry="7" transform="rotate(-29 282 337)"/>
-          <ellipse cx="362" cy="290" rx="8" ry="6" transform="rotate(-29 362 290)"/>
-          <ellipse cx="444" cy="277" rx="10" ry="7" transform="rotate(15 444 277)"/>
-        </g>
-        <g fill="#f6d985" opacity=".95">
-          <ellipse cx="202" cy="359" rx="12" ry="9" transform="rotate(31 202 359)"/>
-          <ellipse cx="236" cy="379" rx="7" ry="6" transform="rotate(31 236 379)"/>
-          <ellipse cx="194" cy="390" rx="6" ry="5" transform="rotate(31 194 390)"/>
-          <ellipse cx="322" cy="354" rx="11" ry="7" transform="rotate(-29 322 354)"/>
-          <ellipse cx="404" cy="308" rx="8" ry="6" transform="rotate(-29 404 308)"/>
-          <ellipse cx="355" cy="397" rx="7" ry="5" transform="rotate(-29 355 397)"/>
-          <ellipse cx="454" cy="340" rx="10" ry="7" transform="rotate(-29 454 340)"/>
-        </g>
-        <!-- Thin pale rind line catches the warm hero light. -->
-        <path class="cheese-glint" d="m166 310 210-117q24-13 45 1l95 54" fill="none" stroke="#fff0c1" stroke-width="4" stroke-linecap="round" opacity=".65"/>
-        <path d="m154 407 106 59 10-8-120-71z" fill="#572d16" opacity=".62"/>
-      </g>      <g fill="#ffd785">
-        <circle cx="122" cy="338" r="3"/><circle cx="457" cy="156" r="2.5"/><circle cx="440" cy="405" r="3"/><circle cx="196" cy="135" r="2"/>
-      </g>
+      <g class="cheese-aura" fill="none" stroke="#edbd69" stroke-opacity=".32"><ellipse cx="300" cy="300" rx="220" ry="92" transform="rotate(-24 300 300)" stroke-width="1.2"/><ellipse cx="300" cy="300" rx="242" ry="112" transform="rotate(31 300 300)" stroke-width=".8" stroke-dasharray="2 12"/><circle cx="300" cy="300" r="226" stroke-dasharray="1 18" stroke-width="2"/></g>
+      <g class="cheese-wheel"><ellipse cx="304" cy="402" rx="180" ry="43" fill="#050302" opacity=".58" filter="url(#softGlow)"/><path d="m145 315 233-130q25-14 52 1l112 64v79L265 470l-120-67z" fill="url(#wheelSide)" stroke="#623315" stroke-width="5" stroke-linejoin="round"/><path d="m145 315 120 71v84l-120-67z" fill="#9a5425" stroke="#e4aa58" stroke-width="3"/><path d="m265 386 277-157v79L265 470z" fill="#b86b2c" stroke="#e4aa58" stroke-width="3"/><path d="m145 315 233-130q25-14 52 1l112 64-277 157z" fill="url(#wheelTop)" stroke="#ffdfa0" stroke-width="4" stroke-linejoin="round"/><path d="m159 318 222-123q22-12 43 0l100 57-259 146z" fill="#f4cc70" opacity=".46"/>
+      <g fill="#9b5b25" opacity=".88"><ellipse cx="219" cy="303" rx="11" ry="7" transform="rotate(-29 219 303)"/><ellipse cx="300" cy="258" rx="8" ry="6" transform="rotate(-29 300 258)"/><ellipse cx="382" cy="224" rx="11" ry="7" transform="rotate(15 382 224)"/><ellipse cx="441" cy="255" rx="9" ry="6" transform="rotate(15 441 255)"/><ellipse cx="282" cy="337" rx="10" ry="7" transform="rotate(-29 282 337)"/><ellipse cx="362" cy="290" rx="8" ry="6" transform="rotate(-29 362 290)"/><ellipse cx="444" cy="277" rx="10" ry="7" transform="rotate(15 444 277)"/></g>
+      <g fill="#f6d985" opacity=".95"><ellipse cx="202" cy="359" rx="12" ry="9" transform="rotate(31 202 359)"/><ellipse cx="236" cy="379" rx="7" ry="6" transform="rotate(31 236 379)"/><ellipse cx="194" cy="390" rx="6" ry="5" transform="rotate(31 194 390)"/><ellipse cx="322" cy="354" rx="11" ry="7" transform="rotate(-29 322 354)"/><ellipse cx="404" cy="308" rx="8" ry="6" transform="rotate(-29 404 308)"/><ellipse cx="355" cy="397" rx="7" ry="5" transform="rotate(-29 355 397)"/><ellipse cx="454" cy="340" rx="10" ry="7" transform="rotate(-29 454 340)"/></g>
+      <path class="cheese-glint" d="m166 310 210-117q24-13 45 1l95 54" fill="none" stroke="#fff0c1" stroke-width="4" stroke-linecap="round" opacity=".65"/><path d="m154 407 106 59 10-8-120-71z" fill="#572d16" opacity=".62"/></g><g fill="#ffd785"><circle cx="122" cy="338" r="3"/><circle cx="457" cy="156" r="2.5"/><circle cx="440" cy="405" r="3"/><circle cx="196" cy="135" r="2"/></g>
     </svg>
-  </div>
-  <div class="hero-shade"></div>
+  </div>  <div class="hero-shade"></div>
 
   <div class="topbar">
     <a class="wordmark" href="#accueil">Bon Appetit</a>
@@ -498,19 +474,22 @@
             </div>
           </dl>
         </div>
-        <div class="duo">
-          <figure>
-            <div class="ph ph--cheese" role="img" aria-label="Photo : plateau de fromages affinés">
-              <img class="food-art" src="fromages-plateau.jpg" alt="Sélection de fromages français sur une planche">
+        <div class="cheese-carousel" data-cheese-carousel role="region" aria-roledescription="carrousel" aria-label="Photos de fromages">
+          <div class="cheese-carousel-stage" data-cheese-stage tabindex="0" aria-live="polite">
+            <button class="cheese-card" type="button" data-cheese-card data-index="0" aria-pressed="true" aria-label="Afficher la sélection de fromages"><img src="fromages-plateau.jpg" alt="Assortiment de fromages français sur une planche"><span class="cheese-card-label">Un plateau pour finir le repas</span></button>
+            <button class="cheese-card" type="button" data-cheese-card data-index="1" aria-pressed="false" aria-label="Afficher les fromages à la coupe"><img src="fromages-selection.jpg" alt="Fromages affinés présentés à la coupe"><span class="cheese-card-label">La coupe, à la demande</span></button>
+            <button class="cheese-card" type="button" data-cheese-card data-index="2" aria-pressed="false" aria-label="Afficher les fromages de différentes familles"><img src="assortiment-fromages.jpg" alt="Sélection variée de fromages français"><span class="cheese-card-label">Des fromages de caractère</span></button>
+          </div>
+          <div class="cheese-carousel-footer">
+            <div class="cheese-progress-tabs" role="tablist" aria-label="Choisir une photo">
+              <button class="cheese-progress-tab" type="button" data-cheese-tab="0" role="tab" aria-label="Photo 1" aria-selected="true"><span></span></button>
+              <button class="cheese-progress-tab" type="button" data-cheese-tab="1" role="tab" aria-label="Photo 2" aria-selected="false"><span></span></button>
+              <button class="cheese-progress-tab" type="button" data-cheese-tab="2" role="tab" aria-label="Photo 3" aria-selected="false"><span></span></button>
             </div>
-            <figcaption>Un plateau pour finir le repas.</figcaption>
-          </figure>
-          <figure>
-            <div class="ph ph--cheese-small" role="img" aria-label="Photo : détail d'un fromage à la coupe">
-              <img class="food-art" src="fromages-selection.jpg" alt="Assortiment de fromages affinés sur une planche">
-            </div>
-            <figcaption>La coupe, à la demande.</figcaption>
-          </figure>
+            <button class="cheese-carousel-arrow" type="button" data-cheese-prev aria-label="Photo précédente"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M9.8 2.6 4.4 8l5.4 5.4 1.2-1.2L6.8 8l4.2-4.2z"/></svg></button>
+            <button class="cheese-carousel-arrow" type="button" data-cheese-next aria-label="Photo suivante"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="m6.2 2.6 5.4 5.4-5.4 5.4L5 12.2 9.2 8 5 3.8z"/></svg></button>
+          </div>
+        </div>
         </div>
       </div>
     </div>
@@ -568,6 +547,55 @@
   </div>
 </footer>
 
+<script>
+(() => {
+  const root = document.querySelector('[data-cheese-carousel]');
+  if (!root) return;
+  const stage = root.querySelector('[data-cheese-stage]');
+  const cards = [...root.querySelectorAll('[data-cheese-card]')];
+  const tabs = [...root.querySelectorAll('[data-cheese-tab]')];
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const interval = 6000;
+  let active = 0, timer = null, dragX = null;
+  const paint = () => {
+    cards.forEach((card, i) => {
+      let offset = (i - active + cards.length) % cards.length;
+      if (offset > cards.length / 2) offset -= cards.length;
+      card.dataset.offset = String(offset);
+      card.setAttribute('aria-pressed', String(offset === 0));
+    });
+    tabs.forEach((tab, i) => tab.setAttribute('aria-selected', String(i === active)));
+  };
+  const stop = () => { if (timer) window.clearInterval(timer); timer = null; };
+  const start = () => {
+    stop();
+    if (!reduceMotion) timer = window.setInterval(() => { active = (active + 1) % cards.length; paint(); }, interval);
+  };
+  const select = index => { active = (index + cards.length) % cards.length; paint(); start(); };
+  cards.forEach((card, i) => {
+    card.addEventListener('pointerenter', event => { if (event.pointerType === 'mouse' || event.pointerType === 'pen') select(i); });
+    card.addEventListener('click', () => select(i));
+  });
+  tabs.forEach((tab, i) => tab.addEventListener('click', () => select(i)));
+  root.querySelector('[data-cheese-prev]').addEventListener('click', () => select(active - 1));
+  root.querySelector('[data-cheese-next]').addEventListener('click', () => select(active + 1));
+  stage.addEventListener('keydown', event => {
+    if (event.key === 'ArrowLeft') { event.preventDefault(); select(active - 1); }
+    if (event.key === 'ArrowRight') { event.preventDefault(); select(active + 1); }
+  });
+  stage.addEventListener('pointerdown', event => {
+    if (event.pointerType === 'mouse' && event.button !== 0) return;
+    dragX = event.clientX; stage.setPointerCapture(event.pointerId);
+  });
+  stage.addEventListener('pointerup', event => {
+    if (dragX === null) return;
+    const delta = event.clientX - dragX; dragX = null;
+    if (Math.abs(delta) > 45) select(active + (delta < 0 ? 1 : -1));
+  });
+  stage.addEventListener('pointercancel', () => { dragX = null; });
+  paint(); start();
+})();
+</script>
 <script>
   (function () {
     // Horaires : index 0 = dimanche … 6 = samedi (comme Date.getDay)
