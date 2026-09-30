@@ -97,6 +97,7 @@
       radial-gradient(70% 60% at 30% 70%, rgba(196, 140, 78, .75) 0%, rgba(196, 140, 78, 0) 65%),
       linear-gradient(190deg, #3b2416 0%, #1a100a 100%);
   }
+  .ph--rotisserie { --ph-base:#42220f; --ph-layers:radial-gradient(65% 60% at 55% 45%,rgba(226,143,55,.75),transparent 72%),linear-gradient(170deg,#4a2815 0%,#1a100b 100%); }
   .ph--sec {
     --ph-layers:
       radial-gradient(65% 60% at 60% 25%, rgba(150, 60, 40, .8) 0%, rgba(150, 60, 40, 0) 65%),
@@ -207,6 +208,7 @@
   .cheese-card[data-offset="0"] { left:16%; top:0; width:68%; height:100%; z-index:2; opacity:1; filter:none; cursor:default; }
   .cheese-card[data-offset="-1"] { left:0; top:8%; width:30%; height:84%; z-index:1; opacity:.9; filter:brightness(.72); }
   .cheese-card[data-offset="1"] { left:70%; top:8%; width:30%; height:84%; z-index:1; opacity:.9; filter:brightness(.72); }
+  .cheese-card[data-offset="2"] { left:50%; top:18%; width:18%; height:64%; z-index:0; opacity:0; pointer-events:none; }
   .cheese-card[data-offset="0"]::after { opacity:1; }
   .cheese-card[data-offset="0"] img { transform:scale(1.015); }
   .cheese-card:hover img { transform:scale(1.04); }
@@ -240,6 +242,8 @@
   .intro-text .lead + p { color: var(--muted); max-width: 34rem; }
   .intro figure { margin: 0; }
   .intro .ph { aspect-ratio: 4 / 5; }
+  .intro .ph--storefront .food-art { object-position: center 42%; }
+  .storefront-stamp { position:absolute; z-index:2; left:1rem; bottom:1rem; padding:.55rem .8rem; border:1px solid rgba(255,255,255,.55); background:rgba(23,17,14,.72); color:#fff8ed; font-size:.78rem; letter-spacing:.08em; text-transform:uppercase; backdrop-filter:blur(6px); }
 
   figcaption { font-family: var(--serif); font-style: italic; font-size: 1.05rem; color: var(--muted); margin-top: .8rem; line-height: 1.4; }
 
@@ -287,7 +291,37 @@
   .foot-col address { color: var(--paper); margin-bottom: 1rem; }
   .text-link { color: var(--paper); text-decoration: underline; text-decoration-color: var(--ember); text-underline-offset: .3em; text-decoration-thickness: 1px; }
   .text-link:hover { text-decoration-thickness: 2px; }
+  .partner-block { display:grid; justify-items:start; gap:.85rem; margin-top:2rem; padding-top:1.5rem; border-top:1px solid var(--line); }
+  .partner-block h2 { margin:0; font-size:1.35rem; }
+  .partner-logo { display:block; width:min(100%,13rem); border-radius:3px; overflow:hidden; transition:transform .25s ease; }
+  .partner-logo:hover { transform:translateY(-2px); }
+  .partner-logo img { display:block; width:100%; height:auto; }
   .foot-actions { display: grid; gap: 1.2rem; justify-items: start; }
+
+  /* ---------- Avis clients ---------- */
+  .reviews { padding-block: clamp(4rem, 9vw, 7rem); background: var(--ink); overflow: hidden; }
+  .reviews-head { display:flex; justify-content:space-between; align-items:end; gap:2rem; margin-bottom:2.5rem; }
+  .reviews-head h2 { font-size:clamp(2.5rem,5.4vw,5rem); line-height:1; }
+  .reviews-intro { color:var(--muted); max-width:29rem; margin-top:.8rem; }
+  .reviews-label { color:var(--ember); font-size:.9rem; letter-spacing:.12em; text-transform:uppercase; margin-bottom:.8rem; }
+  .reviews-columns { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1.2rem; height:36rem; overflow:hidden; mask-image:linear-gradient(to bottom,transparent,black 8%,black 92%,transparent); }
+  .review-track { display:flex; flex-direction:column; animation:review-scroll 34s linear infinite; will-change:transform; }
+  .review-column:nth-child(2) .review-track { animation-duration:40s; animation-delay:-12s; }
+  .review-column:nth-child(3) .review-track { animation-duration:37s; animation-delay:-23s; }
+  .review-column:hover .review-track, .review-column:focus-within .review-track { animation-play-state:paused; }
+  .review-set { display:flex; flex-direction:column; gap:1rem; padding-bottom:1rem; }
+  .review-card { flex:none; padding:1.35rem; border:1px solid var(--line); border-radius:4px; background:var(--ink-2); box-shadow:0 12px 28px rgba(0,0,0,.12); }
+  .review-meta { display:flex; align-items:center; gap:.75rem; margin-bottom:.9rem; }
+  .review-avatar { display:grid; place-items:center; flex:none; width:2.5rem; height:2.5rem; border-radius:50%; background:rgba(232,133,58,.18); color:var(--paper); font-family:var(--serif); font-size:1.15rem; }
+  .review-author { color:var(--paper); font-size:.98rem; line-height:1.25; }
+  .review-source { color:var(--muted); font-size:.82rem; margin-top:.15rem; }
+  .review-stars { color:#f4ae51; letter-spacing:.12em; font-size:1.05rem; margin-bottom:.65rem; }
+  .review-card blockquote { margin:0; color:var(--paper); font-size:.98rem; line-height:1.6; }
+  .review-more { margin-top:2rem; }
+  @keyframes review-scroll { to { transform:translateY(-50%); } }
+  @media (max-width:899px) { .reviews-head { display:block; } .reviews-columns { grid-template-columns:1fr; height:auto; max-height:none; } .review-column { height:15rem; overflow:hidden; } .review-column:nth-child(2) .review-track { animation-delay:-8s; } .review-column:nth-child(3) .review-track { animation-delay:-16s; } }
+  @media (prefers-reduced-motion:reduce) { .review-track { animation:none; } .reviews-columns { height:auto; max-height:none; mask-image:none; } .review-column { height:auto; } .review-set[aria-hidden="true"] { display:none; } }
+
 
   table.hours { width: 100%; border-collapse: collapse; font-size: 1rem; }
   .hours th, .hours td { padding: .7rem 0; border-top: 1px solid var(--line); vertical-align: top; font-weight: 300; }
@@ -313,7 +347,8 @@
     .charcut .figure-lg { grid-column: 1 / 8; margin-left: calc(var(--pad) * -1); }
     .charcut .section-text { grid-column: 9 / 13; }
 
-    .strip { grid-template-columns: repeat(3, 1fr); align-items: start; }
+    .strip { grid-template-columns: repeat(4, 1fr); align-items: start; }
+    .strip figure:nth-child(4) { margin-top: 3rem; }
     .strip figure:nth-child(2) { margin-top: 4.5rem; }
     .strip figure:nth-child(2) .ph { aspect-ratio: 3 / 4; }
     .strip figure:nth-child(3) { margin-top: 1.5rem; }
@@ -387,10 +422,10 @@
           <p>Passez au comptoir, demandez conseil, repartez avec de quoi composer votre table, pour un déjeuner en semaine comme pour un dimanche qui s'étire.</p>
         </div>
         <figure>
-          <div class="ph ph--intro" role="img" aria-label="Photo : gros plan sur une planche de service">
-            <img class="food-art" src="saucissons-planche.jpg" alt="Saucissons artisanaux sur une planche en bois">
+          <div class="ph ph--intro ph--storefront" role="img" aria-label="Façade de la boutique Bon Appetit à Angers">
+            <img class="food-art" src="facade-bon-appetit.jpg" alt="Façade orange de la boutique Bon Appetit, avec son enseigne et son entrée"><span class="storefront-stamp">Votre boutique à Angers</span>
           </div>
-          <figcaption>Ce qui se partage, se coupe à table.</figcaption>
+          <figcaption>Retrouvez-nous au 18 rue Pocquet de Livonnières, à Angers.</figcaption>
         </figure>
       </div>
     </div>
@@ -401,7 +436,7 @@
       <div class="grid">
         <figure class="figure-lg">
           <div class="ph ph--charcut" role="img" aria-label="Planche à partager avec charcuteries, fromages, pâté en croûte, pain et condiments">
-            <img class="food-art" src="plateau-comptoir.jpg" alt="Planche à partager avec jambon sec, saucisson, fromages, pâté en croûte, pain, cornichons, petits oignons et moutarde">
+            <img class="food-art" src="plateau-maison.jpg" alt="Grande planche garnie de fromages, charcuteries, jambon et moutarde à partager">
           </div>
           <figcaption style="padding-left: var(--pad)">Le plateau du comptoir, prêt à être posé au centre de la table.</figcaption>
         </figure>
@@ -445,6 +480,12 @@
           </div>
           <figcaption>Saucissons secs, à couper épais.</figcaption>
         </figure>
+        <figure>
+          <div class="ph ph--rotisserie" role="img" aria-label="Photo : poulet rôti et pommes de terre">
+            <img class="food-art" src="poulet-roti.jpg" alt="Poulet rôti doré, accompagné de pommes de terre">
+          </div>
+          <figcaption>La rôtisserie et ses pommes de terre.</figcaption>
+        </figure>
       </div>
     </div>
   </section>
@@ -479,12 +520,14 @@
             <button class="cheese-card" type="button" data-cheese-card data-index="0" aria-pressed="true" aria-label="Afficher la sélection de fromages"><img src="fromages-plateau.jpg" alt="Assortiment de fromages français sur une planche"><span class="cheese-card-label">Un plateau pour finir le repas</span></button>
             <button class="cheese-card" type="button" data-cheese-card data-index="1" aria-pressed="false" aria-label="Afficher les fromages à la coupe"><img src="fromages-selection.jpg" alt="Fromages affinés présentés à la coupe"><span class="cheese-card-label">La coupe, à la demande</span></button>
             <button class="cheese-card" type="button" data-cheese-card data-index="2" aria-pressed="false" aria-label="Afficher les fromages de différentes familles"><img src="assortiment-fromages.jpg" alt="Sélection variée de fromages français"><span class="cheese-card-label">Des fromages de caractère</span></button>
+            <button class="cheese-card" type="button" data-cheese-card data-index="3" aria-pressed="false" aria-label="Afficher le Brie de Melun"><img src="brie-de-melun.jpg" alt="Brie de Melun entier dans sa boîte en bois"><span class="cheese-card-label">Brie de Melun</span></button>
           </div>
           <div class="cheese-carousel-footer">
             <div class="cheese-progress-tabs" role="tablist" aria-label="Choisir une photo">
               <button class="cheese-progress-tab" type="button" data-cheese-tab="0" role="tab" aria-label="Photo 1" aria-selected="true"><span></span></button>
               <button class="cheese-progress-tab" type="button" data-cheese-tab="1" role="tab" aria-label="Photo 2" aria-selected="false"><span></span></button>
               <button class="cheese-progress-tab" type="button" data-cheese-tab="2" role="tab" aria-label="Photo 3" aria-selected="false"><span></span></button>
+              <button class="cheese-progress-tab" type="button" data-cheese-tab="3" role="tab" aria-label="Photo 4" aria-selected="false"><span></span></button>
             </div>
             <button class="cheese-carousel-arrow" type="button" data-cheese-prev aria-label="Photo précédente"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M9.8 2.6 4.4 8l5.4 5.4 1.2-1.2L6.8 8l4.2-4.2z"/></svg></button>
             <button class="cheese-carousel-arrow" type="button" data-cheese-next aria-label="Photo suivante"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="m6.2 2.6 5.4 5.4-5.4 5.4L5 12.2 9.2 8 5 3.8z"/></svg></button>
@@ -497,7 +540,7 @@
 
   <section class="band" aria-label="Photo d'ambiance">
     <div class="ph ph--band" role="img" aria-label="Photo pleine largeur : table dressée avec charcuterie, fromages et pain">
-      <img class="food-art" src="charcuterie-saucissons.jpg" alt="Assortiment de saucissons français sur une planche">
+      <img class="food-art" src="cfa3f260-5906-11f1-b6eb-e5fa7e92303c.webp" alt="Grande table garnie de poulet rôti, charcuterie, fromages et accompagnements">
     </div>
     <div class="band-shade"></div>
     <div class="wrap">
@@ -505,6 +548,59 @@
     </div>
   </section>
 </main>
+
+<section class="reviews" aria-labelledby="reviews-title">
+  <div class="wrap">
+    <div class="reviews-head">
+      <div>
+        <p class="reviews-label">Avis Google · Bon Appetit</p>
+        <h2 id="reviews-title">Vos mots nous font plaisir</h2>
+        <p class="reviews-intro">Quelques retours de clients sur l’accueil, les produits et les spécialités de la maison.</p>
+      </div>
+    </div>
+    <div class="reviews-columns" aria-label="Avis de clients défilant automatiquement">
+      <div class="review-column"><div class="review-track">
+        <div class="review-set">
+          <article class="review-card"><div class="review-meta"><span class="review-avatar">C</span><div><div class="review-author">Carole Porcheron</div><div class="review-source">Avis Google · il y a 1 mois</div></div></div><div class="review-stars" aria-label="5 étoiles sur 5">★★★★★</div><blockquote>De passage à Angers pour les vacances, nous sommes passés devant et cette boutique nous a fait de l’œil. Nous ne sommes pas déçus d’avoir franchi la porte. Le poulet est excellent, la terrine de poulet citron également. Très bon accueil de la patronne.</blockquote></article>
+          <article class="review-card"><div class="review-meta"><span class="review-avatar">A</span><div><div class="review-author">Anne Marie Tillier</div><div class="review-source">Avis Google · il y a 2 mois</div></div></div><div class="review-stars" aria-label="5 étoiles sur 5">★★★★★</div><blockquote>Passage ce jour dans ce petit magasin très sympa, très bon accueil de la patronne. Très belle et très bonne tomate farcie, « super plat de saison ». Très bon, je recommande.</blockquote></article>
+          <article class="review-card"><div class="review-meta"><span class="review-avatar">S</span><div><div class="review-author">Sébastien Cousin</div><div class="review-source">Avis Google · il y a 2 mois</div></div></div><div class="review-stars" aria-label="5 étoiles sur 5">★★★★★</div><blockquote>Très bon accueil, un grand choix de produits locaux et faits maison, de l’entrée au dessert en passant par le fromage et sans oublier l’apéro, il y a tout. Je recommande pour les petites et les grandes faims.</blockquote></article>
+        </div>
+        <div class="review-set" aria-hidden="true">
+          <article class="review-card"><div class="review-meta"><span class="review-avatar">C</span><div><div class="review-author">Carole Porcheron</div><div class="review-source">Avis Google · il y a 1 mois</div></div></div><div class="review-stars">★★★★★</div><blockquote>De passage à Angers pour les vacances, nous sommes passés devant et cette boutique nous a fait de l’œil. Nous ne sommes pas déçus d’avoir franchi la porte. Le poulet est excellent, la terrine de poulet citron également. Très bon accueil de la patronne.</blockquote></article>
+          <article class="review-card"><div class="review-meta"><span class="review-avatar">A</span><div><div class="review-author">Anne Marie Tillier</div><div class="review-source">Avis Google · il y a 2 mois</div></div></div><div class="review-stars">★★★★★</div><blockquote>Passage ce jour dans ce petit magasin très sympa, très bon accueil de la patronne. Très belle et très bonne tomate farcie, « super plat de saison ». Très bon, je recommande.</blockquote></article>
+          <article class="review-card"><div class="review-meta"><span class="review-avatar">S</span><div><div class="review-author">Sébastien Cousin</div><div class="review-source">Avis Google · il y a 2 mois</div></div></div><div class="review-stars">★★★★★</div><blockquote>Très bon accueil, un grand choix de produits locaux et faits maison, de l’entrée au dessert en passant par le fromage et sans oublier l’apéro, il y a tout. Je recommande pour les petites et les grandes faims.</blockquote></article>
+        </div>
+      </div></div>
+      <div class="review-column"><div class="review-track">
+        <div class="review-set">
+          <article class="review-card"><div class="review-meta"><span class="review-avatar">M</span><div><div class="review-author">Marie L’Étoile</div><div class="review-source">Avis Google · il y a 2 mois</div></div></div><div class="review-stars" aria-label="5 étoiles sur 5">★★★★★</div><blockquote>Le poulet était très bon. L’odeur du poulet rôti m’a donné envie d’y aller, et je ne suis pas déçue. Je reviendrai, c’est sûr.</blockquote></article>
+          <article class="review-card"><div class="review-meta"><span class="review-avatar">N</span><div><div class="review-author">Nicolas Rethore</div><div class="review-source">Avis Google · il y a 4 mois</div></div></div><div class="review-stars" aria-label="5 étoiles sur 5">★★★★★</div><blockquote>Tout est très bon (dans le cochon 😋) chez Bon Appétit : les poulets grillés, plats traiteur, charcuterie et fromage. En plus, les patrons sont très sympas. Je recommande vivement.</blockquote></article>
+          <article class="review-card"><div class="review-meta"><span class="review-avatar">Y</span><div><div class="review-author">Yohann Riou</div><div class="review-source">Avis Google · il y a 3 mois</div></div></div><div class="review-stars" aria-label="5 étoiles sur 5">★★★★★</div><blockquote>Super accueil, produits locaux et de qualité. Je recommande vivement.</blockquote></article>
+        </div>
+        <div class="review-set" aria-hidden="true">
+          <article class="review-card"><div class="review-meta"><span class="review-avatar">M</span><div><div class="review-author">Marie L’Étoile</div><div class="review-source">Avis Google · il y a 2 mois</div></div></div><div class="review-stars">★★★★★</div><blockquote>Le poulet était très bon. L’odeur du poulet rôti m’a donné envie d’y aller, et je ne suis pas déçue. Je reviendrai, c’est sûr.</blockquote></article>
+          <article class="review-card"><div class="review-meta"><span class="review-avatar">N</span><div><div class="review-author">Nicolas Rethore</div><div class="review-source">Avis Google · il y a 4 mois</div></div></div><div class="review-stars">★★★★★</div><blockquote>Tout est très bon (dans le cochon 😋) chez Bon Appétit : les poulets grillés, plats traiteur, charcuterie et fromage. En plus, les patrons sont très sympas. Je recommande vivement.</blockquote></article>
+          <article class="review-card"><div class="review-meta"><span class="review-avatar">Y</span><div><div class="review-author">Yohann Riou</div><div class="review-source">Avis Google · il y a 3 mois</div></div></div><div class="review-stars">★★★★★</div><blockquote>Super accueil, produits locaux et de qualité. Je recommande vivement.</blockquote></article>
+        </div>
+      </div></div>
+      <div class="review-column"><div class="review-track">
+        <div class="review-set">
+          <article class="review-card"><div class="review-meta"><span class="review-avatar">R</span><div><div class="review-author">Rosemonde Fournet</div><div class="review-source">Avis Google · il y a 1 semaine</div></div></div><div class="review-stars" aria-label="5 étoiles sur 5">★★★★★</div><blockquote>Très bon accueil, avec amabilité et sourire. Quant à la charcuterie, un vrai régal. Je vous invite à aller chercher votre charcuterie, vous serez satisfait.</blockquote></article>
+          <article class="review-card"><div class="review-meta"><span class="review-avatar">T</span><div><div class="review-author">Titi V</div><div class="review-source">Avis Google · il y a 1 mois</div></div></div><div class="review-stars" aria-label="5 étoiles sur 5">★★★★★</div><blockquote>Très bon et très sympa.</blockquote></article>
+          <article class="review-card"><div class="review-meta"><span class="review-avatar">T</span><div><div class="review-author">Tahar Benboudjema</div><div class="review-source">Avis Google · il y a 1 mois</div></div></div><div class="review-stars" aria-label="5 étoiles sur 5">★★★★★</div><blockquote>Mon délicieux poulet du dimanche servi par des gens charmants.</blockquote></article>
+          <article class="review-card"><div class="review-meta"><span class="review-avatar">A</span><div><div class="review-author">Alexandre Goulin</div><div class="review-source">Avis Google · il y a 2 mois</div></div></div><div class="review-stars" aria-label="5 étoiles sur 5">★★★★★</div><blockquote>Magasin tout récent, produits frais et locaux, je recommande. Très bon accueil 👍👍</blockquote></article>
+        </div>
+        <div class="review-set" aria-hidden="true">
+          <article class="review-card"><div class="review-meta"><span class="review-avatar">R</span><div><div class="review-author">Rosemonde Fournet</div><div class="review-source">Avis Google · il y a 1 semaine</div></div></div><div class="review-stars">★★★★★</div><blockquote>Très bon accueil, avec amabilité et sourire. Quant à la charcuterie, un vrai régal. Je vous invite à aller chercher votre charcuterie, vous serez satisfait.</blockquote></article>
+          <article class="review-card"><div class="review-meta"><span class="review-avatar">T</span><div><div class="review-author">Titi V</div><div class="review-source">Avis Google · il y a 1 mois</div></div></div><div class="review-stars">★★★★★</div><blockquote>Très bon et très sympa.</blockquote></article>
+          <article class="review-card"><div class="review-meta"><span class="review-avatar">T</span><div><div class="review-author">Tahar Benboudjema</div><div class="review-source">Avis Google · il y a 1 mois</div></div></div><div class="review-stars">★★★★★</div><blockquote>Mon délicieux poulet du dimanche servi par des gens charmants.</blockquote></article>
+          <article class="review-card"><div class="review-meta"><span class="review-avatar">A</span><div><div class="review-author">Alexandre Goulin</div><div class="review-source">Avis Google · il y a 2 mois</div></div></div><div class="review-stars">★★★★★</div><blockquote>Magasin tout récent, produits frais et locaux, je recommande. Très bon accueil 👍👍</blockquote></article>
+        </div>
+      </div></div>
+    </div>
+    <a class="btn btn--ghost review-more" href="https://www.google.com/maps/place/Bon+App%C3%A9tit/@47.4730687,-0.55129,17z/data=!3m2!4b1!5s0x480878e943c793a3:0x384bb7cd8475df6f!4m6!3m5!1s0x480879000b8e94e5:0x5a47e3d7f608d90a!8m2!3d47.4730651!4d-0.5487151!16s%2Fg%2F11z594mtrf?entry=ttu&amp;g_ep=EgoyMDI2MDkyOC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">Voir tous les avis sur Google</a>
+  </div>
+</section>
 
 <footer id="horaires">
   <div class="wrap">
@@ -514,6 +610,18 @@
         <h2>Adresse</h2>
         <address>18 rue Pocquet de Livonnières<br>49100 Angers</address>
         <a class="text-link" href="https://www.google.com/maps/place//data=!4m2!3m1!1s0x480879000b8e94e5:0x5a47e3d7f608d90a?sa=X&amp;ved=1t:8290&amp;ictx=111" target="_blank" rel="noopener">Voir l'itinéraire sur Google Maps</a>
+        <p style="margin-top:1.2rem">Une question ? Appelez-nous directement :</p>
+        <a class="btn btn--ghost" href="tel:+33241697005" aria-label="Appeler l’entreprise au 02 41 69 70 05">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1.03-.24c1.13.37 2.34.56 3.57.56.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.6 21 3 13.4 3 4c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.23.19 2.44.56 3.57a1 1 0 0 1-.24 1.03l-2.22 2.2Z"/></svg>
+          Appeler le 02 41 69 70 05
+        </a>
+        <div class="partner-block">
+          <h2>Notre partenaire</h2>
+          <a class="partner-logo" href="https://www.frerestoque.fr/shop/shop/bon-appetit" target="_blank" rel="noopener" aria-label="Commander chez Bon Appetit avec Frères Toque">
+            <img src="freres-toque.png" alt="Frères Toque">
+          </a>
+          <a class="btn btn--ghost" href="https://www.frerestoque.fr/shop/shop/bon-appetit" target="_blank" rel="noopener">Commander avec Frères Toque</a>
+        </div>
       </div>
 
       <div class="foot-col">
@@ -536,7 +644,7 @@
       <div class="foot-col foot-actions">
         <h2>Votre avis</h2>
         <p>Un avis Google aide d'autres gourmands à nous trouver.</p>
-        <a class="btn btn--ghost" href="https://www.google.com/maps/place//data=!4m2!3m1!1s0x480879000b8e94e5:0x5a47e3d7f608d90a?sa=X&amp;ved=1t:8290&amp;ictx=111" target="_blank" rel="noopener">Laisser un avis</a>
+        <a class="btn btn--ghost" href="https://www.google.com/maps/place/Bon+App%C3%A9tit/@47.4730687,-0.55129,17z/data=!3m2!4b1!5s0x480878e943c793a3:0x384bb7cd8475df6f!4m6!3m5!1s0x480879000b8e94e5:0x5a47e3d7f608d90a!8m2!3d47.4730651!4d-0.5487151!16s%2Fg%2F11z594mtrf?entry=ttu&amp;g_ep=EgoyMDI2MDkyOC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">Laisser un avis</a>
       </div>
     </div>
 
@@ -562,6 +670,8 @@
       let offset = (i - active + cards.length) % cards.length;
       if (offset > cards.length / 2) offset -= cards.length;
       card.dataset.offset = String(offset);
+      card.tabIndex = Math.abs(offset) > 1 ? -1 : 0;
+      card.setAttribute('aria-hidden', String(Math.abs(offset) > 1));
       card.setAttribute('aria-pressed', String(offset === 0));
     });
     tabs.forEach((tab, i) => tab.setAttribute('aria-selected', String(i === active)));
